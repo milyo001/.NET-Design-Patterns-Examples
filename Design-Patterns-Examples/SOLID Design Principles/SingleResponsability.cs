@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using static System.Console;
-
-namespace DotNetDesignPatternDemos.SOLID.SRP
+﻿
+namespace Design-Patterns-Examples.SOLID Design Principles
 {
-  // just stores a couple of journal entries and ways of
-  // working with them
-  public class Journal
+    // Just stores a couple of journal entries and ways of
+    // working with them
+    public class Journal
   {
     private readonly List<string> entries = new List<string>();
 
@@ -17,7 +12,8 @@ namespace DotNetDesignPatternDemos.SOLID.SRP
     public int AddEntry(string text)
     {
       entries.Add($"{++count}: {text}");
-      return count; // memento pattern!
+      return count; 
+       // memento pattern!
     }
 
     public void RemoveEntry(int index)

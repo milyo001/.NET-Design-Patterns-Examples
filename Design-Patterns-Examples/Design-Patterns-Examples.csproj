@@ -8,4 +8,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="SOLID Design Principles\Open-Close.cs" />
+    <Compile Remove="SOLID Design Principles\SingleResponsability.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="SOLID Design Principles\Open-Close.cs" />
+    <None Include="SOLID Design Principles\SingleResponsability.cs" />
+  </ItemGroup>
+
 </Project>
