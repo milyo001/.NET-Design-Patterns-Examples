@@ -3,6 +3,7 @@ An educational project where all .NET design patterns are implemented with given
 > :warning: **Bad practise alert**: A lot of public fields in the repository examples. In real projects use encapsulation!
 
 # Content
+## SOLID Design Principles
 ## Creational
 - Builder
 - Factories
