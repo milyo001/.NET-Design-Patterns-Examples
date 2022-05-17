@@ -10,3 +10,13 @@ An educational project where all .NET design patterns are implemented with given
   * Factory Method
 - Prototype
 - Singleton
+## Structural
+- Bridge
+- Composite
+- Adapter
+- Facade 
+- Decorator
+- Flyweight
+- Proxy
+## Behavioral
+- Chain of Responsibility
