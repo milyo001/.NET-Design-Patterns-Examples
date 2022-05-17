@@ -1,6 +1,6 @@
 # .NET-Design-Patterns-Examples
 An educational project where all .NET design patterns are implemented with given examples.
-> :warning: **Bad practise alert**: A lot of public fields in the repository examples. In real projects use encapsulation!
+> :warning: **Bad practise alert**: A lot of public fields in the repository examples. In real projects use encapsulation and always think how to expose your data.
 
 # Content
 ## SOLID Design Principles
