@@ -9,12 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="SOLID Design Principles\Open-Close.cs" />
+    <Compile Remove="SOLID Design Principles\DependencyInversion.cs" />
+    <Compile Remove="SOLID Design Principles\InterfaceSegregation.cs" />
+    <Compile Remove="SOLID Design Principles\LiskovSubstitution.cs" />
+    <Compile Remove="SOLID Design Principles\OpenClose.cs" />
     <Compile Remove="SOLID Design Principles\SingleResponsability.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="SOLID Design Principles\Open-Close.cs" />
+    <None Include="SOLID Design Principles\DependencyInversion.cs" />
+    <None Include="SOLID Design Principles\InterfaceSegregation.cs" />
+    <None Include="SOLID Design Principles\LiskovSubstitution.cs" />
+    <None Include="SOLID Design Principles\OpenClose.cs" />
     <None Include="SOLID Design Principles\SingleResponsability.cs" />
   </ItemGroup>
 
