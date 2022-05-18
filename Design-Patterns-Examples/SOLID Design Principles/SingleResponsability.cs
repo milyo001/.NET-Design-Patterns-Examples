@@ -29,26 +29,29 @@
 			return string.Join(Environment.NewLine, entries);
 		}
 
-		// Save and Load methods breaks single responsibility principle, the class will have more methods and 
+		// Save,Load(string filename) and Load(Uri uri) methods breaks single responsibility principle, the class will have more methods and 
 		// more responsibilities. Not just adding and removing entries, but also saving and loading to/from file.
 		public void Save(string filename, bool overwrite = false)
 		{
 			File.WriteAllText(filename, ToString());
 		}
 
+		// Method without any logic just for example
 		public void Load(string filename)
 		{
 
 		}
-
+        
+		// Method without any logic just for example
 		public void Load(Uri uri)
 		{
 
 		}
 	}
 
-	// Handles the responsibility of persisting objects
-	public class Persistence
+    // Handles the responsibility of persisting objects. Now we have separation of concerns.
+    // Journal class is responsible to add entry and remove entry and Persistence class is responsible to save to file.
+    public class Persistence
 	{
 		public void SaveToFile(Journal journal, string filename, bool overwrite = false)
 		{
@@ -59,15 +62,17 @@
 
 	public class SingleResponsability
 	{
-		public void Init()
+		public void Main()
         {
 			var j = new Journal();
-			j.AddEntry("I cried today.");
-			j.AddEntry("I ate a bug.");
-			// Will call .ToString method which is overriden, see the Journal class
-			Console.WriteLine(j);	
+            j.AddEntry("The first entry in the journal.");
+            j.AddEntry("Sometimes the dog can bark loud.");
+            j.AddEntry("Sometimes the cat can do more than just meow.");
 
-			// The file will be save by given path in property file
+            // Will call .ToString method which is overriden, see the Journal class
+            Console.WriteLine(j);	
+
+			// The file will be saved by given path in property file
 			var p = new Persistence();
 			var filename = @"c:\temp\journal.txt";
 			p.SaveToFile(j, filename);
