@@ -7,6 +7,7 @@ namespace Design-Patterns-Examples.SOLID Design Principles
 {
 }
 
+// Let's say we have IMachine interface for all printers functionality
 public interface IMachine
 {
 	void Print(Document d);
@@ -14,22 +15,22 @@ public interface IMachine
 	void Scan(Document d);
 }
 
-// ok if you need a multifunction machine
+// Ok if you need a multifunction machine, but what about a simple old fashioned printer? Or maybe a Fax machine?
 public class MultiFunctionPrinter : IMachine
 {
 	public void Print(Document d)
 	{
-		//
+		// Do something here
 	}
 
 	public void Fax(Document d)
 	{
-		//
+		// Do something here
 	}
 
 	public void Scan(Document d)
 	{
-		//
+		// Do something here
 	}
 }
 
@@ -37,10 +38,11 @@ public class OldFashionedPrinter : IMachine
 {
 	public void Print(Document d)
 	{
-		// yep
-	}
+        // Oops, The OldFashionedPrinter can only print documents and that's it, It is too outdated to send Fax or Scan
+    }
 
-	public void Fax(Document d)
+    // We do not need to implement the other methods
+    public void Fax(Document d)
 	{
 		throw new System.NotImplementedException();
 	}
@@ -51,24 +53,31 @@ public class OldFashionedPrinter : IMachine
 	}
 }
 
+// Here comes the Interface Segregation principle. Create smaller interfaces that can be inherited from classes/interfaces
+
+// As you can see the IPrinter contains only Print method
 public interface IPrinter
 {
 	void Print(Document d);
 }
 
+// IScanner contains only Scan method
 public interface IScanner
 {
 	void Scan(Document d);
 }
 
+// Now the Printer class can inherit from IPrinter without adding additional methods which are not needed
 public class Printer : IPrinter
 {
 	public void Print(Document d)
 	{
-
-	}
+        // Hurray, the Printer can print documents and nothing else
+    }
 }
 
+// Same goes for Photocopier class which can inherit from IPrinter and IScanner without
+// adding additional methods which are not needed
 public class Photocopier : IPrinter, IScanner
 {
 	public void Print(Document d)
@@ -82,14 +91,16 @@ public class Photocopier : IPrinter, IScanner
 	}
 }
 
+// This interface will combine IPrinter and IScanner interfaces
 public interface IMultiFunctionDevice : IPrinter, IScanner //
 {
 
 }
 
-public struct MultiFunctionMachine : IMultiFunctionDevice
+// Also example of Decorator design pattern
+public class MultiFunctionMachine : IMultiFunctionDevice
 {
-	// compose this out of several modules
+	// Compose this out of several modules inherited from IMultiFunctionDevice interface
 	private IPrinter printer;
 	private IScanner scanner;
 
