@@ -67,11 +67,16 @@
         }
     }
 
-
-    //var employeeDetailsModified = new EmployeeDetailsModified(new SalaryCalculatorModified());
-    //employeeDetailsModified.HourlyRate = 50;  
-    //    employeeDetailsModified.HoursWorked = 150;  
-    //    Console.WriteLine($"The Total Pay is {employeeDetailsModified.GetSalary()}");  
-
+    // You can test the logic here following the Dependency Inversion Principle
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var employeeDetailsModified = new EmployeeDetailsModified(new SalaryCalculatorModified());
+            employeeDetailsModified.HourlyRate = 50;
+            employeeDetailsModified.HoursWorked = 150;
+            Console.WriteLine($"The Total Pay is {employeeDetailsModified.GetSalary()}");
+        }
+    }
 
 }
