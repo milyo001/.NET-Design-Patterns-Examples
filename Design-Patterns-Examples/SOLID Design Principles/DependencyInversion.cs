@@ -5,27 +5,27 @@
 	using System.Linq;
 	using static System.Console;
 
-        // Not following the Dependency Inversion Principle  
+    // Not following the Dependency Inversion Principle  
 
-        // The salary calculator will calculate the salary of a employee by given hoursWorked and hourlyRate.
-        class SalaryCalculator
-        {
-            public float CalculateSalary(int hoursWorked, float hourlyRate) => hoursWorked * hourlyRate;
-        }
+    // The salary calculator will calculate the salary of a employee by given hoursWorked and hourlyRate.
+    class SalaryCalculator
+    {
+        public float CalculateSalary(int hoursWorked, float hourlyRate) => hoursWorked * hourlyRate;
+    }
 
-        // The employee class will have a property called GetSalary executing CalculateSalary property in SalaryCalculator.
-        // These classes do not follow the “Dependency Inversion Principle” as the higher-level
-        // class EmployeeDetails is directly depending upon the lower level SalaryCalculator class.
-        public class EmployeeDetails
+    // The employee class will have a property called GetSalary executing CalculateSalary property in SalaryCalculator.
+    // These classes do not follow the “Dependency Inversion Principle” as the higher-level
+    // class EmployeeDetails is directly depending upon the lower level SalaryCalculator class.
+    public class EmployeeDetails
+    {
+        public int HoursWorked { get; set; }
+        public int HourlyRate { get; set; }
+        public float GetSalary()
         {
-            public int HoursWorked { get; set; }
-            public int HourlyRate { get; set; }
-            public float GetSalary()
-            {
-                var salaryCalculator = new SalaryCalculator();
-                return salaryCalculator.CalculateSalary(HoursWorked, HourlyRate);
-            }
+            var salaryCalculator = new SalaryCalculator();
+            return salaryCalculator.CalculateSalary(HoursWorked, HourlyRate);
         }
+    }
 
 
     // Following the Dependency Inversion Principle  
@@ -66,5 +66,12 @@
         return _salaryCalculator.CalculateSalary(HoursWorked, HourlyRate);
         }
     }
+
+
+    //var employeeDetailsModified = new EmployeeDetailsModified(new SalaryCalculatorModified());
+    //employeeDetailsModified.HourlyRate = 50;  
+    //    employeeDetailsModified.HoursWorked = 150;  
+    //    Console.WriteLine($"The Total Pay is {employeeDetailsModified.GetSalary()}");  
+
 
 }
