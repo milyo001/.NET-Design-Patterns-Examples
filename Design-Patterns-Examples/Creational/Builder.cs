@@ -54,6 +54,7 @@ namespace DotNetDesignPatternDemos.Creational.Builder
             return sb.ToString();
         }
 
+        // Main funct
         public override string ToString()
         {
             return ToStringImpl(0);
@@ -70,14 +71,15 @@ namespace DotNetDesignPatternDemos.Creational.Builder
             root.Name = rootName;
         }
 
-        // This method is not fluent builder, because it is void. Fluent builder methods return the actual builder
-        // class, so it can be chainable and reused later on.
+        // This method is not using fluent builder pattern, because it is void. Fluent builder pattern
+        // methods return the actual builder instance, so it can be chainable and reused later on.
         public void AddChild(string childName, string childText)
         {
             var e = new HtmlElement(childName, childText);
             root.Elements.Add(e);
         }
 
+        // Now this is a fluent builder pattern method because it returns the actual HtmlBuilder instance
         public HtmlBuilder AddChildFluent(string childName, string childText)
         {
             var e = new HtmlElement(childName, childText);
@@ -95,6 +97,7 @@ namespace DotNetDesignPatternDemos.Creational.Builder
             root = new HtmlElement { Name = rootName };
         }
 
+        // The root element passed from the constructor
         HtmlElement root = new HtmlElement();
     }
 
@@ -131,14 +134,28 @@ namespace DotNetDesignPatternDemos.Creational.Builder
 
             // Now here comes our custom ordinary non-fluent builder
             var builder = new HtmlBuilder("ul");
+
+            // AddChild() is void, so you cannot chain methods, you cannot write
+            // builder.AddChild("p", "test").AddChild("p", "test").Clear()
             builder.AddChild("li", "hello");
             builder.AddChild("li", "world");
             WriteLine(builder.ToString());
 
-            // fluent builder
+            // And an example with fluent builder
             sb.Clear();
-            builder.Clear(); // disengage builder from the object it's building, then...
-            builder.AddChildFluent("li", "hello").AddChildFluent("li", "world");
+            builder.Clear(); // Clear the builder 
+
+            // Because AddChildFluent method returns HtmlBuilder instance you can chain methods, see the example below
+            builder
+                .AddChildFluent("h1", "I am h1 text context!")
+                .AddChildFluent("h2", "I am h2 text context!")
+                .Clear();
+
+            // And some test data for the example
+            builder
+                .AddChildFluent("li", "hello")
+                .AddChildFluent("li", "world");
+
             WriteLine(builder);
         }
     }
