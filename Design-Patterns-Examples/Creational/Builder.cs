@@ -1,0 +1,141 @@
+using System.Text;
+using static System.Console;
+
+namespace DotNetDesignPatternDemos.Creational.Builder
+{
+    // About Builder pattern:
+    // Builder is a creational design pattern, which allows constructing complex objects step by step.
+    // Unlike other creational patterns, Builder doesn’t require products to have a common interface.
+    // That makes it possible to produce different products using the same construction process.
+
+    // Let's build HtmlElement class that contains all the information about the element
+    class HtmlElement
+    {
+        public string Name, Text;
+        public List<HtmlElement> Elements = new List<HtmlElement>();
+        private const int indentSize = 2;
+
+        public HtmlElement()
+        {
+
+        }
+
+        public HtmlElement(string name, string text)
+        {
+            Name = name;
+            Text = text;
+        }
+        
+        private string ToStringImpl(int indent)
+        {
+            var sb = new StringBuilder();
+            var i = new string(' ', indentSize * indent);
+            sb.Append($"{i}<{Name}>\n");
+            
+            // Fist append the Text property
+            if (!string.IsNullOrWhiteSpace(Text))
+            {
+                // Append the text with some spaces using string constructor(char c, int count)
+                sb.Append(new string(' ', indentSize * (indent + 1)));
+                // Then append the text
+                sb.Append(Text);
+                // And finally append new line
+                sb.Append("\n");
+            }
+
+            // Then loop through the elements and append them
+            foreach (var e in Elements)
+                sb.Append(e.ToStringImpl(indent + 1));
+
+            sb.Append($"{i}</{Name}>\n");
+            return sb.ToString();
+        }
+
+        public override string ToString()
+        {
+            return ToStringImpl(0);
+        }
+    }
+
+    class HtmlBuilder
+    {
+        private readonly string rootName;
+
+        public HtmlBuilder(string rootName)
+        {
+            this.rootName = rootName;
+            root.Name = rootName;
+        }
+
+        // not fluent
+        public void AddChild(string childName, string childText)
+        {
+            var e = new HtmlElement(childName, childText);
+            root.Elements.Add(e);
+        }
+
+        public HtmlBuilder AddChildFluent(string childName, string childText)
+        {
+            var e = new HtmlElement(childName, childText);
+            root.Elements.Add(e);
+            return this;
+        }
+
+        public override string ToString()
+        {
+            return root.ToString();
+        }
+
+        public void Clear()
+        {
+            root = new HtmlElement { Name = rootName };
+        }
+
+        HtmlElement root = new HtmlElement();
+    }
+
+    public class Demo
+    {
+        static void Main(string[] args)
+        {
+            // If you want to build a simple HTML paragraph using StringBuilder
+            var hello = "hello";
+            var sb = new StringBuilder();
+            sb.Append("<p>");
+            sb.Append(hello);
+            sb.Append("</p>");
+            // This will output <p>hello</p>
+            WriteLine(sb);
+
+            // And now I want an HTML list with 2 words in it
+            var words = new[] { "hello", "world" };
+
+            // Clear the <p>hello</p> from the code above
+            sb.Clear();
+
+            // Append an unordered list HTML tag
+            sb.Append("<ul>");
+
+            // Now loop through the words array and append formated string which include <li>{word}</li>
+            foreach (var word in words)
+            {
+                sb.AppendFormat("<li>{0}</li>", word);
+            }
+            // Lastly close the unordered list and print on the console
+            sb.Append("</ul>");
+            WriteLine(sb);
+
+            // ordinary non-fluent builder
+            var builder = new HtmlBuilder("ul");
+            builder.AddChild("li", "hello");
+            builder.AddChild("li", "world");
+            WriteLine(builder.ToString());
+
+            // fluent builder
+            sb.Clear();
+            builder.Clear(); // disengage builder from the object it's building, then...
+            builder.AddChildFluent("li", "hello").AddChildFluent("li", "world");
+            WriteLine(builder);
+        }
+    }
+}
