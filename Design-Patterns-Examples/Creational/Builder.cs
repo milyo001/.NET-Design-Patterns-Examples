@@ -30,9 +30,11 @@ namespace DotNetDesignPatternDemos.Creational.Builder
         {
             var sb = new StringBuilder();
             var i = new string(' ', indentSize * indent);
+
+            // Firstly Appends the name of the element and goes to the next line
             sb.Append($"{i}<{Name}>\n");
-            
-            // Fist append the Text property
+
+            // Then append the Text property if not null
             if (!string.IsNullOrWhiteSpace(Text))
             {
                 // Append the text with some spaces using string constructor(char c, int count)
@@ -43,10 +45,11 @@ namespace DotNetDesignPatternDemos.Creational.Builder
                 sb.Append("\n");
             }
 
-            // Then loop through the elements and append them
+            // Then loop through the child elements and append them with the indent + 1 (additional white space)
             foreach (var e in Elements)
                 sb.Append(e.ToStringImpl(indent + 1));
 
+            // Close the tag of the element and go to the next line
             sb.Append($"{i}</{Name}>\n");
             return sb.ToString();
         }
@@ -67,7 +70,8 @@ namespace DotNetDesignPatternDemos.Creational.Builder
             root.Name = rootName;
         }
 
-        // not fluent
+        // This method is not fluent builder, because it is void. Fluent builder methods return the actual builder
+        // class, so it can be chainable and reused later on.
         public void AddChild(string childName, string childText)
         {
             var e = new HtmlElement(childName, childText);
@@ -125,7 +129,7 @@ namespace DotNetDesignPatternDemos.Creational.Builder
             sb.Append("</ul>");
             WriteLine(sb);
 
-            // ordinary non-fluent builder
+            // Now here comes our custom ordinary non-fluent builder
             var builder = new HtmlBuilder("ul");
             builder.AddChild("li", "hello");
             builder.AddChild("li", "world");
