@@ -1,5 +1,5 @@
 
-// Stepwise Builder is builder that is constructing object by specific order
+// Stepwise Builder is builder that is constructing object by chaining in specific order
 namespace StepwiseBuilder
 {
     public enum CarType
@@ -82,11 +82,12 @@ namespace StepwiseBuilder
         static void Main(string[] args)
         {
             var car = CarBuilder.Create()
-              .OfType(CarType.Crossover)
-              .WithWheels(18)
-              .Build();
+              .OfType(CarType.Crossover)  // The only method that we can call after .Create()
+              .WithWheels(18)  // The only method that we can call after .OfType()
+              .Build();  // And finally the Build method which returns the car
 
-            // This won't work because builder needs to invoke .OfType() first
+            // The code below won't work because builder needs to invoke .OfType() first
+            // not .WithWheels()
 
             //var car2 = CarBuilder.Create()
             //  .WithWheels(18)
