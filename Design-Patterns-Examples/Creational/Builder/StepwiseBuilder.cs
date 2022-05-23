@@ -1,5 +1,6 @@
 
-// Stepwise Builder is builder that is constructing object by chaining in specific order
+// Stepwise Builder is builder that is constructing object
+// using a chain that is enforced through set of interfaces
 namespace StepwiseBuilder
 {
     public enum CarType
@@ -13,7 +14,6 @@ namespace StepwiseBuilder
         public CarType Type;
         public int WheelSize;
     }
-
 
     // When we specify the car type we return different interface ISpecifyWheelSize which has WithWheels method
     public interface ISpecifyCarType
