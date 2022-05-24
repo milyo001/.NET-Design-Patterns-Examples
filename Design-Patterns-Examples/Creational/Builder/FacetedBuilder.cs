@@ -21,10 +21,10 @@ namespace DotNetDesignPatternDemos.Creational.BuilderFacets
         }
     }
 
-    public class PersonBuilder // facade 
+    public class PersonBuilder // Facade desing pattern
     {
         // The object we're going to build
-        protected Person person = new Person(); // This is a reference!
+        protected Person person = new Person(); // Note: This is a reference!
 
         public PersonAddressBuilder Lives => new PersonAddressBuilder(person);
         public PersonJobBuilder Works => new PersonJobBuilder(person);
