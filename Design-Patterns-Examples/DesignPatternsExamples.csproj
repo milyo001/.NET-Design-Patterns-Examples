@@ -23,4 +23,23 @@
     <None Include="SOLID Design Principles\SingleResponsability.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Creational\Builder\Summary.txt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Summary.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Creational\Builder\Summary.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Summary.txt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>
