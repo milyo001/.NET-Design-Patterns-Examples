@@ -1,128 +1,124 @@
-﻿namespace DotNetDesignPatternDemos.Creational.AbstractFactory
+﻿namespace RefactoringGuru.DesignPatterns.AbstractFactory.Conceptual
 {
-    public interface IHotDrink
+    // When to use it?
+
+    // We use it when we have a requirement to create a set of related objects, or dependent objects which must 
+    // be used together as families of objects.Concrete classes should be decoupled from clients
+
+    // The example contains some interfaces and classes splitted in 5 logical parts.
+    // 01. AbstractFactory
+    // 02. ConcreteFactory
+    // 03. AbstractProduct
+    // 04. ConcreteProduct
+    // 05. Client
+
+    // 01. AbstractFactory: This is an interface for operations which is used to create abstract product.
+    interface IMobilePhone
     {
-        void Consume();
+        ISmartPhone GetSmartPhone();
+        INormalPhone GetNormalPhone();
     }
 
-    internal class Tea : IHotDrink
+    // 02. ConcreteFactory: This is a class which implements the AbstractFactory interface operations to create concrete products.
+    class Nokia : IMobilePhone
     {
-        public void Consume()
+        // Smartphones are Products of type A
+        public ISmartPhone GetSmartPhone()
         {
-            Console.WriteLine("This tea is nice but I'd prefer it with milk.");
+            return new NokiaPixel();
+        }
+
+        // Normal phones are Products of type B
+        public INormalPhone GetNormalPhone()
+        {
+            return new Nokia1600();
         }
     }
 
-    internal class Coffee : IHotDrink
+    // And another example with samsung. Also implements the AbstractFactory interface operations to create concrete products.
+    class Samsung : IMobilePhone
     {
-        public void Consume()
+        // Same thing smartphones are Products of type A
+        public ISmartPhone GetSmartPhone()
         {
-            Console.WriteLine("This coffee is delicious!");
+            return new SamsungGalaxy();
+        }
+
+        // And the normal phones are Products of type B
+        public INormalPhone GetNormalPhone()
+        {
+            return new SamsungPro();
         }
     }
 
-    public interface IHotDrinkFactory
+    // 03. AbstractProducts: This declares an interfaces for a type of product object (INormalPhone and ISmartPhone).
+    interface INormalPhone
     {
-        // Note we are returning an IHotDrink interface here
-        IHotDrink Prepare(int amount);
+        string GetModelDetails();
     }
 
-    internal class TeaFactory : IHotDrinkFactory
+    interface ISmartPhone
     {
-        public IHotDrink Prepare(int amount)
-        {
-            Console.WriteLine($"Put in tea bag, boil water, pour {amount} ml, add lemon, enjoy!");
-            return new Tea();
-        }
+        string GetModelDetails();
     }
 
-    internal class CoffeeFactory : IHotDrinkFactory
+    // 04. Products: This defines a product object to be created by the corresponding concrete factory also implements the AbstractProduct interface    
+    // Now let's have a class for product nokia which inherits ISmartPhone (ProductA1)
+    class NokiaPixel : ISmartPhone
     {
-        public IHotDrink Prepare(int amount)
+        public string GetModelDetails()
         {
-            Console.WriteLine($"Grind some beans, boil water, pour {amount} ml, add cream and sugar, enjoy!");
-            return new Coffee();
+            return "Model: Nokia Pixel\nRAM: 3GB\nCamera: 8MP\n";
         }
     }
 
-    public class HotDrinkMachine
+    // And then for another smartphone (ProductA2)
+    class SamsungGalaxy : ISmartPhone
     {
-        public enum AvailableDrink // violates open-closed
+        public string GetModelDetails()
         {
-            Coffee, Tea
+            return "Model: Samsung Galaxy\nRAM: 2GB\nCamera: 13MP\n";
         }
-
-        private Dictionary<AvailableDrink, IHotDrinkFactory> factories =
-          new Dictionary<AvailableDrink, IHotDrinkFactory>();
-
-        private List<Tuple<string, IHotDrinkFactory>> namedFactories =
-          new List<Tuple<string, IHotDrinkFactory>>();
-
-        public HotDrinkMachine()
-        {
-            //foreach (AvailableDrink drink in Enum.GetValues(typeof(AvailableDrink)))
-            //{
-            //  var factory = (IHotDrinkFactory) Activator.CreateInstance(
-            //    Type.GetType("DotNetDesignPatternDemos.Creational.AbstractFactory." + Enum.GetName(typeof(AvailableDrink), drink) + "Factory"));
-            //  factories.Add(drink, factory);
-            //}
-
-            foreach (var t in typeof(HotDrinkMachine).Assembly.GetTypes())
-            {
-                if (typeof(IHotDrinkFactory).IsAssignableFrom(t) && !t.IsInterface)
-                {
-                    namedFactories.Add(Tuple.Create(
-                      t.Name.Replace("Factory", string.Empty), (IHotDrinkFactory)Activator.CreateInstance(t)));
-                }
-            }
-        }
-
-        public IHotDrink MakeDrink()
-        {
-            Console.WriteLine("Available drinks");
-            for (var index = 0; index < namedFactories.Count; index++)
-            {
-                var tuple = namedFactories[index];
-                Console.WriteLine($"{index}: {tuple.Item1}");
-            }
-
-            while (true)
-            {
-                string s;
-                if ((s = Console.ReadLine()) != null
-                    && int.TryParse(s, out int i) // c# 7
-                    && i >= 0
-                    && i < namedFactories.Count)
-                {
-                    Console.Write("Specify amount: ");
-                    s = Console.ReadLine();
-                    if (s != null
-                        && int.TryParse(s, out int amount)
-                        && amount > 0)
-                    {
-                        return namedFactories[i].Item2.Prepare(amount);
-                    }
-                }
-                Console.WriteLine("Incorrect input, try again.");
-            }
-        }
-
-        //public IHotDrink MakeDrink(AvailableDrink drink, int amount)
-        //{
-        //  return factories[drink].Prepare(amount);
-        //}
     }
 
-    class Program
+    // And then for a normal phone (ProductB1)
+    class Nokia1600 : INormalPhone
     {
-        static void Main(string[] args)
+        public string GetModelDetails()
         {
-            var machine = new HotDrinkMachine();
-            //var drink = machine.MakeDrink(HotDrinkMachine.AvailableDrink.Tea, 300);
-            //drink.Consume();
+            return "Model: Nokia 1600\nRAM: NA\nCamera: NA\n";
+        }
+    }
 
-            IHotDrink drink = machine.MakeDrink();
-            drink.Consume();
+    // And another normal phone (ProductB2)
+    class SamsungPro : INormalPhone
+    {
+        public string GetModelDetails()
+        {
+            return "Model: Samsung 2001 Pro \nRAM: NA\nCamera: NA\n";
+        }
+    }
+
+    // 05. Client This is a class which uses AbstractFactory and AbstractProduct interfaces to create a family of related objects.
+    class MobileClient
+    {
+        ISmartPhone smartPhone;
+        INormalPhone normalPhone;
+
+        public MobileClient(IMobilePhone factory)
+        {
+            smartPhone = factory.GetSmartPhone();
+            normalPhone = factory.GetNormalPhone();
+        }
+
+        public string GetSmartPhoneModelDetails()
+        {
+            return smartPhone.GetModelDetails();
+        }
+
+        public string GetNormalPhoneModelDetails()
+        {
+            return normalPhone.GetModelDetails();
         }
     }
 }
