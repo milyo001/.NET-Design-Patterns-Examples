@@ -12,6 +12,14 @@
     // 04. ConcreteProduct
     // 05. Client
 
+
+    // Difference between AbstractFactory and Factory Method:
+    // The main difference between factory pattern and abstract factory pattern is that the
+    // factory pattern provides a method of creating objects without specifying the exact class
+    // used to create it while the abstract factory pattern provides a method to combine a group
+    // of individual factories without specifying their concrete classes. 
+    
+    
     // 01. AbstractFactory: This is an interface for operations which is used to create abstract product.
     interface IMobilePhone
     {
