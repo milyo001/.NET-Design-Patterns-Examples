@@ -32,7 +32,7 @@
             // var factory = new AsyncFactory();
 
             // This is the correct way
-            var factory = await AsyncFactory.CreateAsync();
+            AsyncFactory factory = await AsyncFactory.CreateAsync();
         }
     }
 }
