@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -21,6 +21,12 @@
     <None Include="SOLID Design Principles\LiskovSubstitution.cs" />
     <None Include="SOLID Design Principles\OpenClose.cs" />
     <None Include="SOLID Design Principles\SingleResponsability.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.4.0" />
+    <PackageReference Include="morelinq" Version="3.3.2" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,6 +55,11 @@
       <DependentUpon>Summary.txt</DependentUpon>
     </Compile>
     <Compile Update="Creational\Factories\Summary.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Summary.txt</DependentUpon>
+    </Compile>
+    <Compile Update="Creational\Prototype\Summary.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Summary.txt</DependentUpon>
