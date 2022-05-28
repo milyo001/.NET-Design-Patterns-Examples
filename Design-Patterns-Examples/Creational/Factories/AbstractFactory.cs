@@ -6,10 +6,10 @@
     // be used together as families of objects.Concrete classes should be decoupled from clients
 
     // The example contains some interfaces and classes splitted in 5 logical parts.
-    // 01. AbstractFactory
-    // 02. ConcreteFactory
-    // 03. AbstractProduct
-    // 04. ConcreteProduct
+    // 01. Abstract Factory
+    // 02. Concrete Factory
+    // 03. Abstract Product
+    // 04. Concrete Product
     // 05. Client
 
 
@@ -20,14 +20,14 @@
     // of individual factories without specifying their concrete classes. 
     
     
-    // 01. AbstractFactory: This is an interface for operations which is used to create abstract product.
+    // 01. Abstract Factory: This is an interface for operations which is used to create abstract product.
     interface IMobilePhone
     {
         ISmartPhone GetSmartPhone();
         INormalPhone GetNormalPhone();
     }
 
-    // 02. ConcreteFactory: This is a class which implements the AbstractFactory interface operations to create concrete products.
+    // 02. Concrete Factory: This is a class which implements the AbstractFactory interface operations to create concrete products.
     class Nokia : IMobilePhone
     {
         // Smartphones are Products of type A
@@ -59,7 +59,7 @@
         }
     }
 
-    // 03. AbstractProducts: This declares an interfaces for a type of product object (INormalPhone and ISmartPhone).
+    // 03. Abstract Products: This declares an interfaces for a type of product object (INormalPhone and ISmartPhone).
     interface INormalPhone
     {
         string GetModelDetails();
@@ -70,7 +70,7 @@
         string GetModelDetails();
     }
 
-    // 04. Products: This defines a product object to be created by the corresponding concrete factory also implements the AbstractProduct interface    
+    // 04.Concrete Product: This defines a product object to be created by the corresponding concrete factory also implements the AbstractProduct interface    
     // Now let's have a class for product nokia which inherits ISmartPhone (ProductA1)
     class NokiaPixel : ISmartPhone
     {
