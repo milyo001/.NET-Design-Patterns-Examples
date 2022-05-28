@@ -28,6 +28,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Summary.cs</LastGenOutput>
     </None>
+    <None Update="Creational\Factories\Summary.txt">
+      <LastGenOutput>Summary.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

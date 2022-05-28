@@ -7,6 +7,7 @@ namespace DotNetDesignPatternDemos.Creational.Factories
     {
         private double x, y;
 
+        // Note that the constructor is "protected"
         protected Point(double x, double y)
         {
             this.x = x;
@@ -54,7 +55,6 @@ namespace DotNetDesignPatternDemos.Creational.Factories
         // And finally make it lazy
         public static class Factory
         {
-            
             public static Point NewCartesianPoint(double x, double y)
             {
                 return new Point(x, y);
@@ -102,7 +102,6 @@ namespace DotNetDesignPatternDemos.Creational.Factories
             // This class can be easily extended if more coordinate system are available
             var factoredPoint = PointFactory.NewCartesianPoint(2, 3);
             var factoredPoint2 = PointFactory.NewPolarPoint(2, 3);
-
         }
     }
 }
