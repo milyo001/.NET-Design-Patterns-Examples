@@ -33,7 +33,9 @@ namespace DotNetDesignPatternDemos.Creational.Singleton
               )
               .Batch(2)
               .ToDictionary(
+                // The key is the name of the capital
                 list => list.ElementAt(0).Trim(),
+                // The value is the population of the capital
                 list => int.Parse(list.ElementAt(1)));
         }
 
@@ -43,12 +45,15 @@ namespace DotNetDesignPatternDemos.Creational.Singleton
         }
 
         // Laziness + thread safety
+        // The instance is initialized only when somebody calls the IDatabase Instance property
+        // Example: var db = SingletonDatabase.Instance;
         private static Lazy<SingletonDatabase> instance = new Lazy<SingletonDatabase>(() =>
         {
             instanceCount++;
             return new SingletonDatabase();
         });
 
+        // Static property to get the instance of SingletonDatabase (there is only one instance)
         public static IDatabase Instance => instance.Value;
     }
 
@@ -58,11 +63,13 @@ namespace DotNetDesignPatternDemos.Creational.Singleton
         {
             int result = 0;
             foreach (var name in names)
+                // Hard coded reference to the SingletonDatabase instance, which is bad idea
                 result += SingletonDatabase.Instance.GetPopulationByName(name);
             return result;
         }
     }
 
+    //  ConfigurableRecordFinder will find the total population of the cities by given cities names
     public class ConfigurableRecordFinder
     {
         private IDatabase database;
@@ -94,6 +101,7 @@ namespace DotNetDesignPatternDemos.Creational.Singleton
         }
     }
 
+
     /// <summary>
     /// IMPORTANT: be sure to turn off shadow copying for unit tests in R#!
     /// </summary>
@@ -112,7 +120,7 @@ namespace DotNetDesignPatternDemos.Creational.Singleton
         [Test]
         public void SingletonTotalPopulationTest()
         {
-            // testing on a live database
+            // Testing on a live database
             var rf = new SingletonRecordFinder();
             var names = new[] { "Seoul", "Mexico City" };
             int tp = rf.TotalPopulation(names);
@@ -129,18 +137,19 @@ namespace DotNetDesignPatternDemos.Creational.Singleton
               Is.EqualTo(4));
         }
     }
-
+    
     public class Demo
     {
         static void Main()
         {
+            // We are getting the instance with static call, since the constructor is private
             var db = SingletonDatabase.Instance;
 
-            // works just fine while you're working with a real database.
+            // Works just fine while you're working with a real database.
             var city = "Tokyo";
-            WriteLine($"{city} has population {db.GetPopulationByName(city)}");
-
-            // now some tests
+            WriteLine($"{city} has population of {db.GetPopulationByName(city)}");
         }
     }
+
+    
 }
