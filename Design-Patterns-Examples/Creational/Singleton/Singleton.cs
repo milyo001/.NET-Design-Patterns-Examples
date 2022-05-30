@@ -6,7 +6,7 @@ namespace DotNetDesignPatternDemos.Creational.Singleton
 {
     public interface IDatabase
     {
-        int GetPopulation(string name);
+        int GetPopulationByName(string name);
     }
 
     // A mimic for database which will read some data from store, a text file in Singleton folder
@@ -16,12 +16,17 @@ namespace DotNetDesignPatternDemos.Creational.Singleton
         private Dictionary<string, int> capitals;
         // Field for instance of SingletonDatabase count
         private static int instanceCount;
+
+        // Public property to get the instance count of SingletonDatabase from the private field
         public static int Count => instanceCount;
 
+        // Note: Private constructor to prevent creating new instance of SingletonDatabase
         private SingletonDatabase()
         {
-            WriteLine("Initializing database");
+            WriteLine("Initializing database...");
 
+            // Make sure the file Copy to Output Directory is set to Copy Always or Copy If Newer
+            // (select the file capitals.txt and go to properties, click Copy Always)
             capitals = File.ReadAllLines(
               Path.Combine(
                 new FileInfo(typeof(IDatabase).Assembly.Location).DirectoryName, "capitals.txt")
@@ -32,7 +37,7 @@ namespace DotNetDesignPatternDemos.Creational.Singleton
                 list => int.Parse(list.ElementAt(1)));
         }
 
-        public int GetPopulation(string name)
+        public int GetPopulationByName(string name)
         {
             return capitals[name];
         }
@@ -53,7 +58,7 @@ namespace DotNetDesignPatternDemos.Creational.Singleton
         {
             int result = 0;
             foreach (var name in names)
-                result += SingletonDatabase.Instance.GetPopulation(name);
+                result += SingletonDatabase.Instance.GetPopulationByName(name);
             return result;
         }
     }
@@ -71,14 +76,14 @@ namespace DotNetDesignPatternDemos.Creational.Singleton
         {
             int result = 0;
             foreach (var name in names)
-                result += database.GetPopulation(name);
+                result += database.GetPopulationByName(name);
             return result;
         }
     }
 
     public class DummyDatabase : IDatabase
     {
-        public int GetPopulation(string name)
+        public int GetPopulationByName(string name)
         {
             return new Dictionary<string, int>
             {
@@ -133,7 +138,7 @@ namespace DotNetDesignPatternDemos.Creational.Singleton
 
             // works just fine while you're working with a real database.
             var city = "Tokyo";
-            WriteLine($"{city} has population {db.GetPopulation(city)}");
+            WriteLine($"{city} has population {db.GetPopulationByName(city)}");
 
             // now some tests
         }
