@@ -104,6 +104,7 @@ namespace DotNetDesignPatternDemos.Creational.Singleton
 
     /// <summary>
     /// IMPORTANT: be sure to turn off shadow copying for unit tests in R#!
+    /// Singleton pattern is hard to test 
     /// </summary>
     [TestFixture]
     public class SingletonTests

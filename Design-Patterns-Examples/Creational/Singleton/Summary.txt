@@ -1,0 +1,5 @@
+﻿Summary for singleton design pattern:
+* Making a 'safe' singleton is easy: construct a static Lazy<T> and return it's value.
+* Singleton are difficult to test
+* Instead of directly using directly singleton, consider depending on an abstraction (e.g., an interface or Dependency Inversion Principle)
+* Consider defining singleton liftetime DI container
