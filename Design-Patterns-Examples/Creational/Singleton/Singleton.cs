@@ -12,7 +12,9 @@ namespace DotNetDesignPatternDemos.Creational.Singleton
     // A mimic for database which will read some data from store, a text file in Singleton folder
     public class SingletonDatabase : IDatabase
     {
+        // Field for capitals of towns/cities
         private Dictionary<string, int> capitals;
+        // Field for instance of SingletonDatabase count
         private static int instanceCount;
         public static int Count => instanceCount;
 
