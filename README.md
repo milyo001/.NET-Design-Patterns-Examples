@@ -6,15 +6,22 @@ An educational project where all .NET OOP design patterns are implemented with g
 ## SOLID Design Principles
 ## Creational
 - Builder
+> **When constructing objects gets a little bit complicated.** Some objects are simple and can be created with a simple constructor call. Other objects require a lot of ceremony to create. Having a constructor with 10 constructor arguments is not productive. 
 - Factories
   * Abstract Factory
+  > **The purpose of the Abstract Factory is to provide an interface for creating families of related objects, without specifying concrete classes.**
   * Factory Method
+  > Creating an object in one invocation same as Builder but the act of **creating object is outsourced from the actual object to something else like separate function 
+   or a separate class (Factory)**
 - Prototype
+> When it is easier to copy existing object to fully initialize a new one.
 - Singleton
+> **Use the Singleton pattern when a class in your program should have just a single instance available to all clientsfor example**, a single database object shared by different parts of the program.
 ## Structural
 - Bridge
 - Composite
 - Adapter
+> Getting the interface you need from the interface you already have.
 - Facade 
 - Decorator
 - Flyweight
