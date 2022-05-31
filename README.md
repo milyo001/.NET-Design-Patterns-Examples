@@ -21,6 +21,7 @@ An educational project where all .NET OOP design patterns are implemented with g
 - Bridge
 - Composite
 - Adapter
+> Getting the interface you need from the interface you already have.
 - Facade 
 - Decorator
 - Flyweight
