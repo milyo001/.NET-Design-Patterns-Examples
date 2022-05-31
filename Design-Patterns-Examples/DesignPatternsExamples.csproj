@@ -69,4 +69,8 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Structural\Adapter\" />
+  </ItemGroup>
+
 </Project>
