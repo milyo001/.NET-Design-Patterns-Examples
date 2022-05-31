@@ -16,19 +16,7 @@ namespace DotNetDesignPatternDemos.Structural.Adapter.WithCaching
             this.Y = y;
         }
 
-        protected bool Equals(Point other)
-        {
-            return X == other.X && Y == other.Y;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((Point)obj);
-        }
-
+        // Get the hash code 
         public override int GetHashCode()
         {
             unchecked
@@ -54,19 +42,7 @@ namespace DotNetDesignPatternDemos.Structural.Adapter.WithCaching
             this.End = end;
         }
 
-        protected bool Equals(Line other)
-        {
-            return Equals(Start, other.Start) && Equals(End, other.End);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((Line)obj);
-        }
-
+        // Get the hash code of Line
         public override int GetHashCode()
         {
             unchecked
@@ -91,22 +67,32 @@ namespace DotNetDesignPatternDemos.Structural.Adapter.WithCaching
         }
     }
 
+    // In the previuous example(AdapterNoCaching) we used to inherit the class from Collection<Point>, in this example we are going to 
+    // use IEnumerable<Point>
     public class LineToPointAdapter : IEnumerable<Point>
     {
         private static int count = 0;
+        // This will be the cache, as a key we need to store hashcode (The lines are composed of points and the
+        // points are composed // of X and Y coordinates, which are all unique which means it is unlikely to get hash collisions)
         static Dictionary<int, List<Point>> cache = new Dictionary<int, List<Point>>();
+        
+        // The actual hash code used as a key for the cache
         private int hash;
 
         public LineToPointAdapter(Line line)
         {
+            // Set the hash field
             hash = line.GetHashCode();
-            if (cache.ContainsKey(hash)) return; // we already have it
+            
+            // If the hash ket is in the cach we simply return and exit the program
+            if (cache.ContainsKey(hash)) return;
 
             WriteLine($"{++count}: Generating points for line [{line.Start.X},{line.Start.Y}]-[{line.End.X},{line.End.Y}] (with caching)");
             //                                                 ^^^^
 
             List<Point> points = new List<Point>();
-
+            
+            // Then perfom the same calculations as in AdapterNoCaching example
             int left = Math.Min(line.Start.X, line.End.X);
             int right = Math.Max(line.Start.X, line.End.X);
             int top = Math.Min(line.Start.Y, line.End.Y);
@@ -118,6 +104,7 @@ namespace DotNetDesignPatternDemos.Structural.Adapter.WithCaching
             {
                 for (int y = top; y <= bottom; ++y)
                 {
+                    // Note we are adding the points to the list, unlike the AdapterNoCaching example
                     points.Add(new Point(left, y));
                 }
             }
@@ -125,18 +112,23 @@ namespace DotNetDesignPatternDemos.Structural.Adapter.WithCaching
             {
                 for (int x = left; x <= right; ++x)
                 {
+                    // Here too
                     points.Add(new Point(x, top));
                 }
             }
 
+            // And finally add the points to the cache
             cache.Add(hash, points);
         }
 
+        // Inherited
         public IEnumerator<Point> GetEnumerator()
         {
+            // We already have the points stored in the cache, from here we can access them
             return cache[hash].GetEnumerator();
         }
 
+        // Inherited
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
@@ -152,7 +144,6 @@ namespace DotNetDesignPatternDemos.Structural.Adapter.WithCaching
       new VectorRectangle(3, 3, 6, 6)
     };
 
-        // the interface we have
         public static void DrawPoint(Point p)
         {
             Write(".");
@@ -161,6 +152,8 @@ namespace DotNetDesignPatternDemos.Structural.Adapter.WithCaching
         static void Main(string[] args)
         {
             Draw();
+
+            // Won't do anything because the points and lines are already stored in the cashe
             Draw();
         }
 
@@ -171,6 +164,7 @@ namespace DotNetDesignPatternDemos.Structural.Adapter.WithCaching
                 foreach (var line in vo)
                 {
                     var adapter = new LineToPointAdapter(line);
+                    // Unlike the previous example we've printed 16 result, now we have only 8
                     adapter.ForEach(DrawPoint);
                 }
             }

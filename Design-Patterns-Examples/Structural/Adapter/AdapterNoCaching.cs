@@ -4,7 +4,6 @@ using static System.Console;
 
 namespace DotNetDesignPatternDemos.Structural.Adapter.NoCaching
 {
-    // Let's have a point 
     public class Point
     {
         public int X;
