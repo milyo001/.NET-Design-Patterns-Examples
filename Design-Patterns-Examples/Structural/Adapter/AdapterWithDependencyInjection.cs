@@ -118,7 +118,8 @@ namespace AutofacDemos
 
                 foreach (var btn in editor.Buttons)
                     btn.PrintMe();
-                // Outputs "I am a button called Save" and "I am a button called Open"
+                // Outputs "I am a button called Open" and "I am a button called Save", the metadata
+                // is set when we register the Container types above by calling .WithMetadata()
             }
         }
     }
