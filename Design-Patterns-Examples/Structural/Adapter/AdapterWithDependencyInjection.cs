@@ -72,6 +72,7 @@ namespace AutofacDemos
             this.buttons = buttons;
         }
 
+        // Diagnostic method to click all buttons
         public void ClickAll()
         {
             foreach (var btn in buttons)
@@ -89,29 +90,35 @@ namespace AutofacDemos
             // For each ICommand, a ToolbarButton is created to wrap it, and all
             // are passed to the editor
             var b = new ContainerBuilder();
-            
+
+            // We register a OpenCommand and SaveCommand with the container meta data
             b.RegisterType<OpenCommand>()
               .As<ICommand>()
               .WithMetadata("Name", "Open");
             b.RegisterType<SaveCommand>()
               .As<ICommand>()
               .WithMetadata("Name", "Save");
-            //b.RegisterType<Button>();
+
+            // Then we register an Container adapter using DI
             b.RegisterAdapter<ICommand, Button>(cmd => new Button(cmd, ""));
+            
+            // If we need a metadata we can use the Meta<T> class
             b.RegisterAdapter<Meta<ICommand>, Button>(cmd =>
               new Button(cmd.Value, (string)cmd.Metadata["Name"]));
+            
+            // And lastly we register container type
             b.RegisterType<Editor>();
+            
             using (var c = b.Build())
             {
                 var editor = c.Resolve<Editor>();
+                // Outputs "Saving a file" and "Opening a file"
                 editor.ClickAll();
 
-                // problem: only one button
 
                 foreach (var btn in editor.Buttons)
                     btn.PrintMe();
-
-
+                // Outputs "I am a button called Save" and "I am a button called Open"
             }
         }
     }
