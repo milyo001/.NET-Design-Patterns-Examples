@@ -19,6 +19,7 @@ An educational project where all .NET OOP design patterns are implemented with g
 > **Use the Singleton pattern when a class in your program should have just a single instance available to all clientsfor example**, a single database object shared by different parts of the program.
 ## Structural
 - Bridge
+> Connecting components together through abstractions.
 - Composite
 - Adapter
 > Getting the interface you need from the interface you already have.
