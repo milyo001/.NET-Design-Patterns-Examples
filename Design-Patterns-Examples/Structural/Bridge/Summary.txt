@@ -1,0 +1,4 @@
+﻿Summary for Bridge pattern:
+* Decouple abstraction from implementation
+* Both can exist as hierarchies
+* A strong form of encapsulation
