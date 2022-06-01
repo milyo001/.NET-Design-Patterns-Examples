@@ -1,13 +1,19 @@
 ﻿using Autofac;
 using Autofac.Features.Metadata;
 
+// For the example I am using Autofac plugin. 
+// It manages the dependencies between classes so that applications stay easy to change as they grow in size and complexity.
+// This is achieved by treating regular . NET classes as components.
+// For more info https://autofac.readthedocs.io/en/latest/
 namespace AutofacDemos
 {
+    // Let's have a ICommand interface with a single void method Execute
     public interface ICommand
     {
         void Execute();
     }
 
+    // SaveCommand to save data into file for example
     public class SaveCommand : ICommand
     {
         public void Execute()
@@ -16,6 +22,7 @@ namespace AutofacDemos
         }
     }
 
+    // Open command to open a file
     public class OpenCommand : ICommand
     {
         public void Execute()
@@ -24,11 +31,14 @@ namespace AutofacDemos
         }
     }
 
+    // Now we have a Button, which will have a command but injected with DI
     public class Button
     {
+        // We have ICommand here, it is not inheritet
         private ICommand command;
         private string name;
 
+        // Initialize the command and the name from the constructor
         public Button(ICommand command, string name)
         {
             if (command == null)
@@ -39,6 +49,7 @@ namespace AutofacDemos
             this.name = name;
         }
 
+        // When we click the button we execute the injected command
         public void Click()
         {
             command.Execute();
@@ -74,9 +85,11 @@ namespace AutofacDemos
     {
         static void Main_(string[] args)
         {
-            // for each ICommand, a ToolbarButton is created to wrap it, and all
+            // If you are not familiar with Autofac ContainerBuilder go to https://autofac.org/apidoc/html/717248.htm
+            // For each ICommand, a ToolbarButton is created to wrap it, and all
             // are passed to the editor
             var b = new ContainerBuilder();
+            
             b.RegisterType<OpenCommand>()
               .As<ICommand>()
               .WithMetadata("Name", "Open");
