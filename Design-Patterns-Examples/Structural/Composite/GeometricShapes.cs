@@ -1,13 +1,22 @@
 ﻿using System.Text;
 using static System.Console;
 
+// We are going to emulate drawing applicaiton in this example
+
 namespace DotNetDesignPatternDemos.Structural.Composite.GeometricShapes
 {
+    // Let's have a base class GraphicObject
     public class GraphicObject
     {
+        // Virtual property, so we can override it
         public virtual string Name { get; set; } = "Group";
+        
         public string Color;
+        
+        
         private Lazy<List<GraphicObject>> children = new Lazy<List<GraphicObject>>();
+        
+        // Public field to expose the field (only instanciting the list of children when needed)
         public List<GraphicObject> Children => children.Value;
 
         private void Print(StringBuilder sb, int depth)
