@@ -21,6 +21,7 @@ An educational project where all .NET OOP design patterns are implemented with g
 - Bridge
 > Connecting components together through abstractions.
 - Composite
+> Allows composing objects into a tree-like structure and work with the it as if it was a singular object.
 - Adapter
 > Getting the interface you need from the interface you already have.
 - Facade 
