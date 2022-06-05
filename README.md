@@ -26,6 +26,7 @@ An educational project where all .NET OOP design patterns are implemented with g
 > Getting the interface you need from the interface you already have.
 - Facade 
 - Decorator
+> Allows adding new behaviors to objects dynamically by placing them inside special wrapper objects.
 - Flyweight
 - Proxy
 ## Behavioral
