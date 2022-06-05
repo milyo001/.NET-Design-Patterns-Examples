@@ -1,0 +1,6 @@
+﻿Summary for Composite pattern:
+* Objects can use other objects via inheritance/composition
+* Some objects and singular objects need similar/identical behaviors
+* Composite desing pattern lets us treat both types of objects uniformly
+* C# has a special support for enumeration concept (we have interfaces such as IEnumerable)
+* A single object can masquarade as a collection with yield return this;
