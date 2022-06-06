@@ -356,10 +356,12 @@ namespace DotNetDesignPatternDemos.Structural.AdapterDecorator
     {
         static void Main(string[] args)
         {
+            // A StringBuilder with changed functionality.
             MyStringBuilder s = "hello ";
-            
+
             // Now use the custom StringBuilder to concatenate two strings. As we know a normal string += anotherString is slow operation, because 
-            // strings are immutable in .NET. That's why we use string builder to append the strings
+            // strings are immutable in .NET (an object that cannot be changed after it has been created).
+            // That's why we use out custom string builder to append the strings
             s += "world"; 
             
             WriteLine(s);
