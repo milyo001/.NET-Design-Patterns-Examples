@@ -7,6 +7,7 @@ namespace AutofacDemos
         void Report();
     }
 
+    // Let's say we have a service that reports the current time
     public class ReportingService : IReportingService
     {
         public void Report()
@@ -15,10 +16,12 @@ namespace AutofacDemos
         }
     }
 
+    // And we need to alter the functionality of the reporting service, withoud chaging the service
     public class ReportingServiceWithLogging : IReportingService
     {
         private IReportingService decorated;
 
+        // Injected from the constrcutor
         public ReportingServiceWithLogging(IReportingService decorated)
         {
             if (decorated == null)
@@ -31,6 +34,7 @@ namespace AutofacDemos
         public void Report()
         {
             Console.WriteLine("Commencing log...");
+            // Here we reuse the functionality of the reporting service which is injected from constructor
             decorated.Report();
             Console.WriteLine("Ending log...");
         }
@@ -40,6 +44,8 @@ namespace AutofacDemos
     {
         static void Main_(string[] args)
         {
+            // Dependency injection with autofac
+            
             var b = new ContainerBuilder();
             b.RegisterType<ReportingService>().Named<IReportingService>("reporting");
             b.RegisterDecorator<IReportingService>(
