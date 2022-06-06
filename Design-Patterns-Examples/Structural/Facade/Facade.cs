@@ -26,13 +26,14 @@ namespace RefactoringGuru.DesignPatterns.Facade.Conceptual
         // fraction of a subsystem's capabilities.
         public string Operation()
         {
-            string result = "Facade initializes subsystems:\n";
-            result += this._subsystem1.operation1();
-            result += this._subsystem2.operation1();
-            result += "Facade orders subsystems to perform the action:\n";
-            result += this._subsystem1.operationN();
-            result += this._subsystem2.operationZ();
-            return result;
+            var sb = new StringBuilder();
+            sb.AppendLine("Facade initializes subsystems:")
+                .Append(this._subsystem1.operation1())
+                .Append(this._subsystem2.operation1())
+                .AppendLine("Facade orders subsystems to perform the action:")
+                .Append(this._subsystem1.operationN())
+                .Append(this._subsystem2.operationZ());
+            return sb.ToString();
         }
     }
 
