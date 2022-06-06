@@ -11,6 +11,7 @@ namespace DotNetDesignPatternDemos.Structural.Decorator.DynamicDecoratorComposit
     {
         private float radius;
 
+        // Empty constructor with default value, used for the static decorator example
         public Circle() : this(0)
         {
 
@@ -33,6 +34,7 @@ namespace DotNetDesignPatternDemos.Structural.Decorator.DynamicDecoratorComposit
     {
         private float side;
 
+        // Empty constructor with default value, used for the static decorator example
         public Square() : this(0)
         {
 
@@ -77,14 +79,21 @@ namespace DotNetDesignPatternDemos.Structural.Decorator.DynamicDecoratorComposit
         public override string AsString() => $"{shape.AsString()} has {transparency * 100.0f} transparency";
     }
 
-    // CRTP cannot be done
+    
+    // Static decorator
+    // CRTP cannot be done in C#, which is commonly used in C++
+    
+    // The line below cannot be done
     //public class ColoredShape2<T> : T where T : Shape { }
-
+    
     public class ColoredShape<T> : Shape where T : Shape, new()
     {
         private string color;
+
+        // new T() is required from the condition (the new() requirment when inheriting from Shape)
         private T shape = new T();
 
+        // We need an empty constructor (the new() requirment when inheriting from Shape)
         public ColoredShape() : this("black")
         {
 
@@ -101,6 +110,7 @@ namespace DotNetDesignPatternDemos.Structural.Decorator.DynamicDecoratorComposit
         }
     }
 
+    // A second static decorator
     public class TransparentShape<T> : Shape where T : Shape, new()
     {
         private float transparency;
@@ -121,8 +131,8 @@ namespace DotNetDesignPatternDemos.Structural.Decorator.DynamicDecoratorComposit
     {
         static void Main(string[] args)
         {
-            // Dynamic decorator composition demo
-            
+            // ------------- Dynamic decorator composition demo - runs at runtime ----------------
+
             // Let's init a square 
             var square = new Square(1.23f);
             WriteLine(square.AsString());
@@ -135,10 +145,12 @@ namespace DotNetDesignPatternDemos.Structural.Decorator.DynamicDecoratorComposit
             var redHalfTransparentSquare = new TransparentShape(redSquare, 0.5f);
             WriteLine(redHalfTransparentSquare.AsString());
 
-            // Static Decorator (not that used)
+            // ------------- Static decorator demo (not that used in C#, C# doesn't support inheritance from template argument like C++ ) ----------------
+            
             ColoredShape<Circle> blueCircle = new ColoredShape<Circle>("blue");
             WriteLine(blueCircle.AsString());
 
+            // This is with the default value of colored shape
             TransparentShape<ColoredShape<Square>> blackHalfSquare = new TransparentShape<ColoredShape<Square>>(0.4f);
             WriteLine(blackHalfSquare.AsString());
         }
