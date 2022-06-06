@@ -1,0 +1,3 @@
+﻿Summary for facade:
+* Build a Facade to provide simplified API over a set of classes or subsystems
+* May allow users to 'escalate' to use more complex APIs if they need to
