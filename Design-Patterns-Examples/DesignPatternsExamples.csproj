@@ -16,6 +16,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Structural\Decorator\Summary.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Structural\Decorator\Summary.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="SOLID Design Principles\DependencyInversion.cs" />
     <None Include="SOLID Design Principles\InterfaceSegregation.cs" />
     <None Include="SOLID Design Principles\LiskovSubstitution.cs" />

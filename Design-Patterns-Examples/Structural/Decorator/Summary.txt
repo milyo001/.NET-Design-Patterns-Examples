@@ -1,0 +1,4 @@
+﻿Summary for decorator pattern: 
+* A decorator keeps a reference to the decorated object(s) and adds new functionality to it.
+* May or may not proxy over calls.
+ * Use of resharper comes in handy to generate delegated members. (See AdapterDecorator example)
