@@ -23,16 +23,18 @@ namespace RefactoringGuru.DesignPatterns.Facade.Conceptual
 
         // The Facade's methods are convenient shortcuts to the sophisticated
         // functionality of the subsystems. However, clients get only to a
-        // fraction of a subsystem's capabilities.
+        // fraction of a subsystem's capabilities. 
         public string Operation()
         {
+            // Note that we are not exposing any methods to the final user by executing Operation()
+            // subsystem1.operationAlpha, Beta or Charley are never called etc.
             var sb = new StringBuilder();
             sb.AppendLine("Facade initializes subsystems:")
-                .Append(this._subsystem1.operation1())
-                .Append(this._subsystem2.operation1())
+                .AppendLine(this._subsystem1.operation1())
+                .AppendLine(this._subsystem2.operation1())
                 .AppendLine("Facade orders subsystems to perform the action:")
-                .Append(this._subsystem1.operationN())
-                .Append(this._subsystem2.operationZ());
+                .AppendLine(this._subsystem1.operationN())
+                .AppendLine(this._subsystem2.operationZ());
             return sb.ToString();
         }
     }
@@ -44,26 +46,47 @@ namespace RefactoringGuru.DesignPatterns.Facade.Conceptual
     {
         public string operation1()
         {
-            return "Subsystem1: Ready!\n";
+            return "Subsystem1: Ready!";
         }
 
         public string operationN()
         {
-            return "Subsystem1: Go!\n";
+            return "Subsystem1: Go!";
         }
+
+        public string operationAlpha()
+        {
+            return "Subsystem1: Useless operation!";
+        }
+
+        public string operationBeta()
+        {
+            return "Subsystem1: Memory eater activated!";
+        }
+
+        public string operationCharley()
+        {
+            return "Subsystem1: Heap overflow attack launched!";
+        }        
     }
+    
 
     // Some facades can work with multiple subsystems at the same time.
     public class Subsystem2
     {
         public string operation1()
         {
-            return "Subsystem2: Get ready!\n";
+            return "Subsystem2: Get ready!";
         }
 
         public string operationZ()
         {
-            return "Subsystem2: Fire!\n";
+            return "Subsystem2: Fire!";
+        }
+
+        public string operationOmega()
+        {
+            return "Subsystem2: Do not expose this secret data!";
         }
     }
 
