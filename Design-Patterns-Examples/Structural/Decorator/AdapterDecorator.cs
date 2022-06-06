@@ -4,19 +4,26 @@ using static System.Console;
 
 namespace DotNetDesignPatternDemos.Structural.AdapterDecorator
 {
+    // Let's say we want to change the some of the logic of StringBuilder
     public class MyStringBuilder
     {
         StringBuilder sb = new StringBuilder();
 
+        // Sample decorator pattern
         //=============================================
 
+        // If we want to have implicit conversion, see the Demo below (MyStringBuilder s = "hello ");
         public static implicit operator MyStringBuilder(string s)
         {
+            // Init new MyStringBuilder
             var msb = new MyStringBuilder();
+            // Then append the given string using the property sb above
             msb.sb.Append(s);
+            // And return the MyStringBuilder, so it can be fluent
             return msb;
         }
 
+        // We want to have logic for concatenating two or more strings using the += operator or a simple + operator
         public static MyStringBuilder operator +(MyStringBuilder msb, string s)
         {
             msb.Append(s);
@@ -30,7 +37,7 @@ namespace DotNetDesignPatternDemos.Structural.AdapterDecorator
 
         //=============================================
 
-        // Delegating members of StringBuilder. The code below is auto-generated using Resharper 
+        // Delegating members of StringBuilder. The code below is auto-generated with Resharper 
         
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
@@ -350,8 +357,11 @@ namespace DotNetDesignPatternDemos.Structural.AdapterDecorator
         static void Main(string[] args)
         {
             MyStringBuilder s = "hello ";
-            s += "world"; // will work even without op+ in MyStringBuilder
-                          // why? you figure it out!
+            
+            // Now use the custom StringBuilder to concatenate two strings. As we know a normal string += anotherString is slow operation, because 
+            // strings are immutable in .NET. That's why we use string builder to append the strings
+            s += "world"; 
+            
             WriteLine(s);
         }
     }
