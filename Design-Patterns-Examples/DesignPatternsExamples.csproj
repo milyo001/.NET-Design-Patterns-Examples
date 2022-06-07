@@ -71,11 +71,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Summary.txt</DependentUpon>
     </Compile>
-    <Compile Update="Creational\Prototype\Summary.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Summary.txt</DependentUpon>
-    </Compile>
   </ItemGroup>
 
 </Project>
