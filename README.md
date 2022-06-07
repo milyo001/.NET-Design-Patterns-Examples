@@ -29,6 +29,7 @@ An educational project where all .NET OOP design patterns are implemented with g
 - Decorator
 > Adding behavior without altering the class itself.
 - Flyweight
+> Used for space optimization.
 - Proxy
 ## Behavioral
 - Chain of Responsibility
