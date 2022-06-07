@@ -31,6 +31,7 @@ An educational project where all .NET OOP design patterns are implemented with g
 - Flyweight
 > Used for space optimization.
 - Proxy
+> An interface for accessing particular resource. 
 ## Behavioral
 - Chain of Responsibility
 - Command
