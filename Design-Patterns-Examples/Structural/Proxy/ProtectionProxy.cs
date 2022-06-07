@@ -27,8 +27,10 @@ namespace DotNetDesignPatternDemos.Structural.Proxy.Protection
             this.driver = driver;
         }
 
+        // Protection proxy method
         public void Drive()
         {
+            // Checks if the driver is above 16 years old to drive a car
             if (driver.Age >= 16)
                 car.Drive();
             else
@@ -52,8 +54,15 @@ namespace DotNetDesignPatternDemos.Structural.Proxy.Protection
     {
         static void Main(string[] args)
         {
-            ICar car = new CarProxy(new Driver(12)); // 22
-            car.Drive();
+            var john = new Driver(12);
+            ICar bmw = new CarProxy(john);
+            bmw.Drive();
+            // Outputs too young.
+
+            var miro = new Driver(29);
+            ICar toyota = new CarProxy(miro);
+            toyota.Drive();
+            // Outputs "Car being driven".
         }
     }
 }
