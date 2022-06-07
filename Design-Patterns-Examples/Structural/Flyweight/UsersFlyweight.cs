@@ -78,8 +78,11 @@ namespace DotNetDesignPatternDemos.Structural.Flyweight.Users
             return new string(
               Enumerable.Range(0, 10).Select(i => (char)('a' + rand.Next(26))).ToArray());
         }
-        
+
         // Right click on the test and click 'Run under dotNetMemory Unit'
+        // Results for TestUser(for the first one without optimization) : 1 666 235 bytes
+        // Results for TestUser2(for the second one with the optimization) : 1 237 435 bytes
+        // This data will be different on your machine
         [Test]
         public void TestUser()
         {
@@ -104,6 +107,7 @@ namespace DotNetDesignPatternDemos.Structural.Flyweight.Users
             });
         }
 
+        // Same test but for User2 class
         [Test]
         public void TestUser2()
         {
