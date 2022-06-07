@@ -1,0 +1,4 @@
+﻿Summary for Flyweight:
+* Store common data externally
+* Define the idea of ranges homogeneous(of the same kind; alike) collections and store data related to those ranges
+* By default .NET string interning is the Flyweight pattern 
