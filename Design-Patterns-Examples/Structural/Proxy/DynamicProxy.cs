@@ -1,9 +1,11 @@
-﻿using System.Dynamic;
+﻿using ImpromptuInterface;
+using System.Dynamic;
 using System.Text;
 using static System.Console;
 
 namespace DotNetDesignPatternDemos.Structural.Proxy
 {
+    // Let's say we hace a BankAccount interface and class with two simple methods Withdraw and Deposit
     public interface IBankAccount
     {
         void Deposit(int amount);
@@ -39,18 +41,23 @@ namespace DotNetDesignPatternDemos.Structural.Proxy
         }
     }
 
-    public class Log<T> : DynamicObject where T : class, new()
+    // Dynamic proxy, DynamicObject is a bit of complicated 
+    public class Log<T> : DynamicObject 
+        where T : class, new()
     {
+        // A reference to the subject. 
         private readonly T subject;
-        private Dictionary<string, int> methodCallCount =
-          new Dictionary<string, int>();
+        
+        // The key is the name of the method and the value is the number of times the method was called 
+        private Dictionary<string, int> methodCallCount = new();
 
+        // The default constructor, which is required from the constraint new() above
         protected Log(T subject)
         {
             this.subject = subject ?? throw new ArgumentNullException(paramName: nameof(subject));
         }
 
-        // factory method
+        // Factory method
         public static I As<I>(T subject) where I : class
         {
             if (!typeof(I).IsInterface)
@@ -69,18 +76,25 @@ namespace DotNetDesignPatternDemos.Structural.Proxy
             return new Log<T>(new T()).ActLike<I>();
         }
 
+        // Overriding the DynamicObject member TryInvokeMember
         public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
         {
             try
             {
-                // logging
+                // Logging
                 WriteLine($"Invoking {subject.GetType().Name}.{binder.Name} with arguments [{string.Join(",", args)}]");
 
-                // more logging
+                // Additional logging
+
+                // Check if the name of the method is present in the Dictionary
                 if (methodCallCount.ContainsKey(binder.Name)) methodCallCount[binder.Name]++;
+
+                // Otherwise add the name and set it's value to one
                 else methodCallCount.Add(binder.Name, 1);
 
                 result = subject.GetType().GetMethod(binder.Name).Invoke(subject, args);
+
+                // Return true if everything works correct
                 return true;
             }
             catch
