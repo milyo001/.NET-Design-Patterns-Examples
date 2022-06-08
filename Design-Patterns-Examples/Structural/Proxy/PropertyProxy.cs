@@ -29,23 +29,30 @@ namespace DesignPatterns
             this.value = value;
         }
 
+        // For implicit coversion (assignment)
         public static implicit operator T(Property<T> property)
         {
-            return property.value; // int n = p_int;
+            // int n = p_int; (when using property of int)
+            return property.value; 
         }
 
         public static implicit operator Property<T>(T value)
         {
-            return new Property<T>(value); // Property<int> p = 123;
+            // This operator take care of the case Property<int> p = 12345;
+            return new Property<T>(value); 
         }
 
+        // Equality members
+        
+        // Generated from Resharper, used by the operators above
         public bool Equals(Property<T> other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
             return EqualityComparer<T>.Default.Equals(value, other.value);
         }
-
+        
+        // Generated from Resharper, used by the operators above
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -86,8 +93,12 @@ namespace DesignPatterns
         static void Main(string[] args)
         {
             var c = new Creature();
-            c.Agility = 10; // c.set_Agility(10) xxxxxxxxxxxxx
-                            // c.Agility = new Property<int>(10)
+
+            // Assignment operator uses implicit conversion in Property Object
+            // This will execute the following code
+            // c.Agility = new Property<int>(10) 
+            c.Agility = 10; 
+            
             c.Agility = 10;
         }
     }
