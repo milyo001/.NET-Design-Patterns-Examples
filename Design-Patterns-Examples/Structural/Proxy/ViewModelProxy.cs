@@ -1,24 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using JetBrains.Annotations;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using DotNetDesignPatternDemos.Annotations;
 
+// MVVM 
 namespace DotNetDesignPatternDemos.Structural.Proxy
 {
-    // Model
+    // Model, generate from Database etc
     public class Person
     {
         public string FirstName;
         public string LastName;
     }
 
-    // what if you need to update on changes?
+    // What if you need to update on changes?
 
     /// <summary>
     /// A wrapper around a <c>Person</c> that can be
     /// bound to UI controls.
     /// </summary>
-    public class PersonViewModel
+    public class PersonViewModel // proxy over the Person itself
       : INotifyPropertyChanged
     {
         private readonly Person person;
@@ -54,6 +54,7 @@ namespace DotNetDesignPatternDemos.Structural.Proxy
         // Project two properties together into, e.g., an edit box.
         public string FullName
         {
+            // Trim the string, because sometimes it could be empty
             get => $"{FirstName} {LastName}".Trim();
             set
             {
@@ -62,7 +63,7 @@ namespace DotNetDesignPatternDemos.Structural.Proxy
                     FirstName = LastName = null;
                     return;
                 }
-                var items = value.Split();
+                var items = value.Split(); // Split into first and last name
                 if (items.Length > 0)
                     FirstName = items[0]; // may cause npc
                 if (items.Length > 1)
