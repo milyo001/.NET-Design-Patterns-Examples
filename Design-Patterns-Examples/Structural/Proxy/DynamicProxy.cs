@@ -57,14 +57,16 @@ namespace DotNetDesignPatternDemos.Structural.Proxy
             this.subject = subject ?? throw new ArgumentNullException(paramName: nameof(subject));
         }
 
-        // Factory method
-        public static I As<I>(T subject) where I : class
+        // Generic Factory method
+        public static I As<I>(T subject) 
+            where I : class
         {
             if (!typeof(I).IsInterface)
                 throw new ArgumentException("I must be an interface type");
 
             // duck typing here!
-            return new Log<T>(subject).ActLike<I>();
+            return new Log<T>(subject)
+                .ActLike<I>(); // Act like an given interface, in our case I
         }
 
         public static I As<I>() where I : class
@@ -104,6 +106,7 @@ namespace DotNetDesignPatternDemos.Structural.Proxy
             }
         }
 
+        // A simple statistic method to display the methods and their call count
         public string Info
         {
             get
@@ -115,7 +118,7 @@ namespace DotNetDesignPatternDemos.Structural.Proxy
             }
         }
 
-        // will not be proxied automatically
+        // Will not be proxied automatically
         public override string ToString()
         {
             return $"{Info}{subject}";
@@ -126,11 +129,14 @@ namespace DotNetDesignPatternDemos.Structural.Proxy
     {
         static void Main(string[] args)
         {
-            //var ba = new BankAccount();
+            // We are making dinamic proxy ruturned as Interface IBankAccount
             var ba = Log<BankAccount>.As<IBankAccount>();
 
             ba.Deposit(100);
             ba.Withdraw(50);
+
+            // Not working because ba is IBankAccount, so we need to override .toString() manually
+            //WriteLine(ba.Info);
 
             WriteLine(ba);
         }
