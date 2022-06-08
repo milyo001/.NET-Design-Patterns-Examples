@@ -1,0 +1,5 @@
+﻿Summary for Proxy pattern:
+* Has the same interface as the underlying object
+* To create a proxt simply replicate the existing interface of a object
+* Add relevent functionality to the redifined member functions (like decorator)
+* Different proxies, which have diffrent behaviors
