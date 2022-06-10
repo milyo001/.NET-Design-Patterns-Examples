@@ -2,7 +2,7 @@
 
 namespace DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.ModifierChain.BrokerChain
 {
-    // command query separation is being used here
+    // Command query separation is being used here
 
     public class Query
     {
@@ -17,6 +17,7 @@ namespace DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.ModifierChai
 
         public int Value; // bidirectional
 
+        // The value parameter is used if there is a bonus on top of the initial value
         public Query(string creatureName, Argument whatToQuery, int value)
         {
             CreatureName = creatureName ?? throw new ArgumentNullException(paramName: nameof(creatureName));
@@ -25,9 +26,9 @@ namespace DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.ModifierChai
         }
     }
 
-    public class Game // mediator pattern
+    public class Game // Mediator pattern
     {
-        public event EventHandler<Query> Queries; // effectively a chain
+        public event EventHandler<Query> Queries; // Effectively a chain
 
         public void PerformQuery(object sender, Query q)
         {
@@ -69,6 +70,7 @@ namespace DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.ModifierChai
             }
         }
 
+        // Output the properties, not the fields because we are using their getters 
         public override string ToString() // no game
         {
             return $"{nameof(Name)}: {Name}, {nameof(attack)}: {Attack}, {nameof(defense)}: {Defense}";
@@ -76,8 +78,10 @@ namespace DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.ModifierChai
         }
     }
 
+    // Without linked list (you can add and remove modifier)
     public abstract class CreatureModifier : IDisposable
     {
+        // Protected because we are in abstract class, references to game and creature
         protected Game game;
         protected Creature creature;
 
@@ -85,6 +89,7 @@ namespace DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.ModifierChai
         {
             this.game = game;
             this.creature = creature;
+            // Subscribe
             game.Queries += Handle;
         }
 
@@ -92,6 +97,7 @@ namespace DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.ModifierChai
 
         public void Dispose()
         {
+            // Unsubscribe
             game.Queries -= Handle;
         }
     }
@@ -104,6 +110,7 @@ namespace DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.ModifierChai
 
         protected override void Handle(object sender, Query q)
         {
+            // Check if that's the right creature, because this a query not command like the previous example
             if (q.CreatureName == creature.Name &&
                 q.WhatToQuery == Query.Argument.Attack)
                 q.Value *= 2;
