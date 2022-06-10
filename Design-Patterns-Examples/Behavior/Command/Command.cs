@@ -32,12 +32,14 @@ namespace DotNetDesignPatternDemos.Behavioral.Command.Command
 
     public interface ICommand
     {
+        // Calls and executes the command
         void Call();
         void Undo();
     }
 
     public class BankAccountCommand : ICommand
     {
+        // Ref to the bank acc
         private BankAccount account;
 
         public enum Action
@@ -65,6 +67,7 @@ namespace DotNetDesignPatternDemos.Behavioral.Command.Command
                     succeeded = true;
                     break;
                 case Action.Withdraw:
+                    // Withdraw return bool, check the BankAccount class
                     succeeded = account.Withdraw(amount);
                     break;
                 default:
@@ -95,21 +98,25 @@ namespace DotNetDesignPatternDemos.Behavioral.Command.Command
         {
             var ba = new BankAccount();
             var commands = new List<BankAccountCommand>
-      {
-        new BankAccountCommand(ba, BankAccountCommand.Action.Deposit, 100),
-        new BankAccountCommand(ba, BankAccountCommand.Action.Withdraw, 1000)
-      };
-
+            {
+                new BankAccountCommand(ba, BankAccountCommand.Action.Deposit, 100),
+                new BankAccountCommand(ba, BankAccountCommand.Action.Withdraw, 1000)
+            };
+            // balance: 0
             WriteLine(ba);
 
+            // Call the commands
             foreach (var c in commands)
                 c.Call();
 
+            // balance: 50
             WriteLine(ba);
 
+            // Undo the commands
             foreach (var c in Enumerable.Reverse(commands))
                 c.Undo();
-
+            
+            // balance: 100
             WriteLine(ba);
         }
     }
