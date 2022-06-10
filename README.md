@@ -34,6 +34,7 @@ An educational project where all .NET OOP design patterns are implemented with g
 > An interface for accessing particular resource. 
 ## Behavioral
 - Chain of Responsibility
+> Sequence of handlers processing an event one after another.
 - Command
 - Interpreter
 - Iterator
