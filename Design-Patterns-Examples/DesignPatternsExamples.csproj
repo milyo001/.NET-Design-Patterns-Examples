@@ -75,8 +75,4 @@
     </Compile>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Behavior\Chain of Responsibility\" />
-  </ItemGroup>
-
 </Project>
