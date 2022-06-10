@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.MethodChain;
-using static System.Console;
+﻿using static System.Console;
 
 namespace DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.ModifierChain.BrokerChain
 {

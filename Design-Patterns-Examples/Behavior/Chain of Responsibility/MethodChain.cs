@@ -1,149 +1,139 @@
-﻿using System;
-using System.Collections.Generic;
-using DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.MethodChain;
-using static System.Console;
+﻿using static System.Console;
 
-namespace DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.ModifierChain.BrokerChain
+namespace DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.MethodChain
 {
-    // command query separation is being used here
-
-    public class Query
-    {
-        public string CreatureName;
-
-        public enum Argument
-        {
-            Attack, Defense
-        }
-
-        public Argument WhatToQuery;
-
-        public int Value; // bidirectional
-
-        public Query(string creatureName, Argument whatToQuery, int value)
-        {
-            CreatureName = creatureName ?? throw new ArgumentNullException(paramName: nameof(creatureName));
-            WhatToQuery = whatToQuery;
-            Value = value;
-        }
-    }
-
-    public class Game // mediator pattern
-    {
-        public event EventHandler<Query> Queries; // effectively a chain
-
-        public void PerformQuery(object sender, Query q)
-        {
-            Queries?.Invoke(sender, q);
-        }
-    }
-
     public class Creature
     {
-        private Game game;
         public string Name;
-        private int attack, defense;
+        public int Attack, Defense;
 
-        public Creature(Game game, string name, int attack, int defense)
+        public Creature(string name, int attack, int defense)
         {
-            this.game = game ?? throw new ArgumentNullException(paramName: nameof(game));
-            this.Name = name ?? throw new ArgumentNullException(paramName: nameof(name));
-            this.attack = attack;
-            this.defense = defense;
+            Name = name ?? throw new ArgumentNullException(paramName: nameof(name));
+            Attack = attack;
+            Defense = defense;
         }
 
-        public int Attack
+        public override string ToString()
         {
-            get
-            {
-                var q = new Query(Name, Query.Argument.Attack, attack);
-                game.PerformQuery(this, q);
-                return q.Value;
-            }
-        }
-
-        public int Defense
-        {
-            get
-            {
-                var q = new Query(Name, Query.Argument.Defense, defense);
-                game.PerformQuery(this, q);
-                return q.Value;
-            }
-        }
-
-        public override string ToString() // no game
-        {
-            return $"{nameof(Name)}: {Name}, {nameof(attack)}: {Attack}, {nameof(defense)}: {Defense}";
-            //                                                 ^^^^^^^^ using a property    ^^^^^^^^^
+            return $"{nameof(Name)}: {Name}, {nameof(Attack)}: {Attack}, {nameof(Defense)}: {Defense}";
         }
     }
 
-    public abstract class CreatureModifier : IDisposable
+    // This base class is like collection for all creatures
+    public class CreatureModifier
     {
-        protected Game game;
         protected Creature creature;
+        protected CreatureModifier next; // A linked list
 
-        protected CreatureModifier(Game game, Creature creature)
+        public CreatureModifier(Creature creature)
         {
-            this.game = game;
-            this.creature = creature;
-            game.Queries += Handle;
+            this.creature = creature ?? throw new ArgumentNullException(paramName: nameof(creature));
         }
 
-        protected abstract void Handle(object sender, Query q);
-
-        public void Dispose()
+        public void Add(CreatureModifier cm)
         {
-            game.Queries -= Handle;
+            if (next != null) next.Add(cm);
+            else next = cm;
+        }
+
+        // When next is null we will reach the end of execution, calling Handle() will perform all commands 
+        // in the entire collection (CreatureModifier)
+        public virtual void Handle() => next?.Handle();
+    }
+
+    public class NoBonusesModifier : CreatureModifier
+    {
+        public NoBonusesModifier(Creature creature) : base(creature)
+        {
+        }
+
+        public override void Handle()
+        {
+            WriteLine($"Sorry, {creature.Name}, no bonuses for you! :(");
+            // Do not forget the to call base.Handle(), otherwise it NoBonusesModifier will break the chain
+            // regardless the fact that no bonuses are applied, check the DispellModifer
+            base.Handle();
+        }
+    }
+
+    public class CurseModifier : CreatureModifier
+    {
+        public CurseModifier(Creature creature) : base(creature)
+        {
+        }
+
+        public override void Handle()
+        {
+            WriteLine($"{creature.Name} has been cursed, no more buffs are allowed!");
+            // Note that we break the chain here by removing the invocation of the Handle() method in the base class
+            //base.Handle();
         }
     }
 
     public class DoubleAttackModifier : CreatureModifier
     {
-        public DoubleAttackModifier(Game game, Creature creature) : base(game, creature)
+        public DoubleAttackModifier(Creature creature) : base(creature)
         {
         }
 
-        protected override void Handle(object sender, Query q)
+        // Overriding the vitual method Handle() in the base class CreatureModifier
+        public override void Handle()
         {
-            if (q.CreatureName == creature.Name &&
-                q.WhatToQuery == Query.Argument.Attack)
-                q.Value *= 2;
+            // We can access creature, because it is protected in the base class
+            WriteLine($"Doubling {creature.Name}'s attack.");
+            creature.Attack *= 2;
+            // Will call CreatureModifier
+            base.Handle();
         }
     }
 
     public class IncreaseDefenseModifier : CreatureModifier
     {
-        public IncreaseDefenseModifier(Game game, Creature creature) : base(game, creature)
+        public IncreaseDefenseModifier(Creature creature) : base(creature)
         {
         }
 
-        protected override void Handle(object sender, Query q)
+        // Same thing with defence of the creature
+        public override void Handle()
         {
-            if (q.CreatureName == creature.Name &&
-                q.WhatToQuery == Query.Argument.Defense)
-                q.Value += 2;
+            WriteLine("Increasing goblin's defense");
+            creature.Defense += 3;
+            base.Handle();
         }
     }
 
     public class Demo
     {
-        public static void Main()
+        static void Main(string[] args)
         {
-            var game = new Game();
-            var goblin = new Creature(game, "Strong Goblin", 3, 3);
+            var goblin = new Creature("Goblin", 2, 2);
             WriteLine(goblin);
 
-            using (new DoubleAttackModifier(game, goblin))
-            {
-                WriteLine(goblin);
-                using (new IncreaseDefenseModifier(game, goblin))
-                {
-                    WriteLine(goblin);
-                }
-            }
+            // The base class creature modifier
+            var root = new CreatureModifier(goblin);
 
+            // Apply no bonuses, just to test the functionality
+            root.Add(new NoBonusesModifier(goblin));
+
+            WriteLine("Let's double goblin's attack...");
+            // Buff the attack
+            root.Add(new DoubleAttackModifier(goblin));
+
+            WriteLine("Let's increase goblin's defense");
+            // Increase the defence with the defence modifer
+            root.Add(new IncreaseDefenseModifier(goblin));
+
+            // Will break the chain, no more buffs for the goblin
+            root.Add(new CurseModifier(goblin));
+
+            // Won't work
+            root.Add(new DoubleAttackModifier(goblin));
+
+            // Handle will execute all the commands, depending on the modifier on the creature
+            // So the goblin will have double attack, and increased defence. And when we reach 
+            // the CurseModifier the chain will break
+            root.Handle();
             WriteLine(goblin);
         }
     }
