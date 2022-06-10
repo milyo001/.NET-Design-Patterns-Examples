@@ -52,8 +52,22 @@ namespace DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.MethodChain
         {
             WriteLine($"Sorry, {creature.Name}, no bonuses for you! :(");
             // Do not forget the to call base.Handle(), otherwise it NoBonusesModifier will break the chain
-            // regardless the fact that no bonuses are applied
+            // regardless the fact that no bonuses are applied, check the DispellModifer
             base.Handle();
+        }
+    }
+
+    public class CurseModifier : CreatureModifier
+    {
+        public CurseModifier(Creature creature) : base(creature)
+        {
+        }
+
+        public override void Handle()
+        {
+            WriteLine($"{creature.Name} has been cursed, no more buffs are allowed!");
+            // Note that we break the chain here by removing the invocation of the Handle() method in the base class
+            //base.Handle();
         }
     }
 
@@ -67,7 +81,7 @@ namespace DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.MethodChain
         public override void Handle()
         {
             // We can access creature, because it is protected in the base class
-            WriteLine($"Doubling {creature.Name}'s attack");
+            WriteLine($"Doubling {creature.Name}'s attack.");
             creature.Attack *= 2;
             // Will call CreatureModifier
             base.Handle();
@@ -110,8 +124,15 @@ namespace DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.MethodChain
             // Increase the defence with the defence modifer
             root.Add(new IncreaseDefenseModifier(goblin));
 
+            // Will break the chain, no more buffs for the goblin
+            root.Add(new CurseModifier(goblin));
+
+            // This won't work
+            root.Add(new DoubleAttackModifier(goblin));
+
             // Handle will execute all the commands, depending on the modifier on the creature
-            // So the goblin will have double attack, and increased defence
+            // So the goblin will have double attack, and increased defence. And when we reach 
+            // the CurseModifier the chain will break
             root.Handle();
             WriteLine(goblin);
         }
