@@ -22,10 +22,11 @@ namespace DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.MethodChain
         }
     }
 
+    // This base class is like collection for all creatures
     public class CreatureModifier
     {
         protected Creature creature;
-        protected CreatureModifier next;
+        protected CreatureModifier next; // A linked list
 
         public CreatureModifier(Creature creature)
         {
@@ -60,8 +61,10 @@ namespace DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.MethodChain
         {
         }
 
+        // Overriding the vitual method
         public override void Handle()
         {
+            // We can access creature, because it is protected in the base class
             WriteLine($"Doubling {creature.Name}'s attack");
             creature.Attack *= 2;
             base.Handle();
@@ -74,6 +77,7 @@ namespace DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.MethodChain
         {
         }
 
+        // Same thing with defence of the creature
         public override void Handle()
         {
             WriteLine("Increasing goblin's defense");
@@ -89,17 +93,22 @@ namespace DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.MethodChain
             var goblin = new Creature("Goblin", 2, 2);
             WriteLine(goblin);
 
+            // The base class creature modifier
             var root = new CreatureModifier(goblin);
 
+            // Apply no bonuses, just to test the functionality
             root.Add(new NoBonusesModifier(goblin));
 
             WriteLine("Let's double goblin's attack...");
+            // Buff the attack
             root.Add(new DoubleAttackModifier(goblin));
 
             WriteLine("Let's increase goblin's defense");
+            // Increase the defence with the defence modifer
             root.Add(new IncreaseDefenseModifier(goblin));
 
-            // eventually...
+            // Handle will execute all the commands, depending on the modifier on the creature
+            // So the goblin will have double attack, and increased defence
             root.Handle();
             WriteLine(goblin);
         }
