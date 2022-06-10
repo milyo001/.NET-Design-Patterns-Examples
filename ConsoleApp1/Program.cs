@@ -50,7 +50,7 @@ namespace DotNetDesignPatternDemos.Behavioral.ChainOfResponsibility.MethodChain
 
         public override void Handle()
         {
-            WriteLine($"Sorry, {creature.Name}, no bonuses for you! :(");
+            WriteLine($"Sorry, {nameof(creature)}, no bonuses for you! :(");
             // Do not forget the to call base.Handle(), otherwise it NoBonusesModifier will break the chain
             // regardless the fact that no bonuses are applied
             base.Handle();

@@ -1,0 +1,15 @@
+C:\Users\Miroslav Ilyovski\source\repos\.NET-Design-Patterns-Examples\ConsoleApp1\bin\Debug\net6.0\ConsoleApp1.exe
+C:\Users\Miroslav Ilyovski\source\repos\.NET-Design-Patterns-Examples\ConsoleApp1\bin\Debug\net6.0\ConsoleApp1.deps.json
+C:\Users\Miroslav Ilyovski\source\repos\.NET-Design-Patterns-Examples\ConsoleApp1\bin\Debug\net6.0\ConsoleApp1.runtimeconfig.json
+C:\Users\Miroslav Ilyovski\source\repos\.NET-Design-Patterns-Examples\ConsoleApp1\bin\Debug\net6.0\ConsoleApp1.dll
+C:\Users\Miroslav Ilyovski\source\repos\.NET-Design-Patterns-Examples\ConsoleApp1\bin\Debug\net6.0\ConsoleApp1.pdb
+C:\Users\Miroslav Ilyovski\source\repos\.NET-Design-Patterns-Examples\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.csproj.AssemblyReference.cache
+C:\Users\Miroslav Ilyovski\source\repos\.NET-Design-Patterns-Examples\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Miroslav Ilyovski\source\repos\.NET-Design-Patterns-Examples\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.AssemblyInfoInputs.cache
+C:\Users\Miroslav Ilyovski\source\repos\.NET-Design-Patterns-Examples\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.AssemblyInfo.cs
+C:\Users\Miroslav Ilyovski\source\repos\.NET-Design-Patterns-Examples\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.csproj.CoreCompileInputs.cache
+C:\Users\Miroslav Ilyovski\source\repos\.NET-Design-Patterns-Examples\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.dll
+C:\Users\Miroslav Ilyovski\source\repos\.NET-Design-Patterns-Examples\ConsoleApp1\obj\Debug\net6.0\refint\ConsoleApp1.dll
+C:\Users\Miroslav Ilyovski\source\repos\.NET-Design-Patterns-Examples\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.pdb
+C:\Users\Miroslav Ilyovski\source\repos\.NET-Design-Patterns-Examples\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.genruntimeconfig.cache
+C:\Users\Miroslav Ilyovski\source\repos\.NET-Design-Patterns-Examples\ConsoleApp1\obj\Debug\net6.0\ref\ConsoleApp1.dll
