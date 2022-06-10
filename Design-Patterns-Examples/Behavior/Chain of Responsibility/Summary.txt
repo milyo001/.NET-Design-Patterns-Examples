@@ -1,0 +1,4 @@
+﻿Summary for Chain of Responsibility pattern:
+* Chain of Responsibility can be implemented as a chain of references or a centralized construct
+* Enlist objects in the chain, possibly controlling their order
+* Object removal from chain (using IDisposable)
