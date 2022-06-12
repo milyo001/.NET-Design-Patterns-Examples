@@ -96,17 +96,20 @@ namespace DotNetDesignPatternDemos.Behavioral.Command.Composite
         }
     }
 
+    // Collection of commads
     abstract class CompositeBankAccountCommand : List<BankAccountCommand>, ICommand
     {
+        // Call all commands
         public virtual void Call()
         {
             ForEach(cmd => cmd.Call());
         }
 
+        // Undo every single command in reversed order
         public virtual void Undo()
         {
             foreach (var cmd in
-              ((IEnumerable<BankAccountCommand>)this).Reverse())
+              ((IEnumerable<BankAccountCommand>)this).Reverse()) // Cast to IEnumerable, so we can use Enumberable.Reserve() not List.Reverse()
             {
                 cmd.Undo();
             }
@@ -153,8 +156,10 @@ namespace DotNetDesignPatternDemos.Behavioral.Command.Composite
             var ba = new BankAccount();
             var cmdDeposit = new BankAccountCommand(ba,
               BankAccountCommand.Action.Deposit, 100);
+            
             var cmdWithdraw = new BankAccountCommand(ba,
               BankAccountCommand.Action.Withdraw, 1000);
+            
             cmdDeposit.Call();
             cmdWithdraw.Call();
             WriteLine(ba);
