@@ -75,6 +75,7 @@ namespace DotNetDesignPatternDemos.Behavioral.Command.Command
             }
         }
 
+        // Reversed Call() logic 
         public void Undo()
         {
             if (!succeeded) return;
