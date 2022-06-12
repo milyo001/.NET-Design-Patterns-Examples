@@ -75,6 +75,7 @@ namespace DotNetDesignPatternDemos.Behavioral.Command.Command
             }
         }
 
+        // One of the advantages of command pattern is the undo operation
         // Reversed Call() logic 
         public void Undo()
         {
@@ -113,11 +114,10 @@ namespace DotNetDesignPatternDemos.Behavioral.Command.Command
             // balance: 50
             WriteLine(ba);
 
-            // Undo the commands
-            foreach (var c in Enumerable.Reverse(commands))
+            // Loop through the commands in reversed order
+            foreach (var c in Enumerable.Reverse(commands)) // Enumerable.Reverse is mutable operation, it takes List<T>
                 c.Undo();
             
-            // balance: 100
             WriteLine(ba);
         }
     }
