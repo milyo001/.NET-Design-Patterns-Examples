@@ -1,0 +1,5 @@
+﻿Summary for the command pattern:
+* Encapsulate all the details of an operation in separate object
+* Define instruction for applying command (either in the command itself, or elsewhere)
+* Optionally define instructions for undoing the command
+* Can create composite commands (macros)
