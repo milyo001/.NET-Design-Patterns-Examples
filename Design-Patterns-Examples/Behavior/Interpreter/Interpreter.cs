@@ -1,8 +1,12 @@
 ﻿using System.Text;
 using static System.Console;
 
+// This pattern is complex, you can research it online or buy a course ( most of them are around 10 hours)
+// The code below is a simple demo of lexing and parsing (Interpreter pattern)
+
 namespace DotNetDesignPatternDemos.Behavioral.Interpreter.Handmade
 {
+    
     public interface IElement
     {
         int Value { get; }
