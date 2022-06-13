@@ -38,6 +38,7 @@ An educational project where all .NET OOP design patterns are implemented with g
 - Command
 > Command turns a request into a stand-alone object that contains all information about the request. This transformation lets you pass requests as a method arguments, delay or queue a request’s execution, and support undoable operations.
 - Interpreter
+> A component that processes structured text data (by lexing and then parsing tokens).
 - Iterator
 - Mediator
 - Memento
