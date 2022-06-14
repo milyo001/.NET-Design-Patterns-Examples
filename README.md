@@ -40,6 +40,7 @@ An educational project where all .NET OOP design patterns are implemented with g
 - Interpreter
 > A component that processes structured text data (by lexing and then parsing tokens).
 - Iterator
+> How traversal of data structures happens and who exactly allows the traversal.
 - Mediator
 - Memento
 - Null Object
