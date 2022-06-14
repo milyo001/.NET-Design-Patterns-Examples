@@ -151,7 +151,7 @@ namespace DotNetDesignPatternDemos.Structural.Iterator.TreeTraversal
 
             WriteLine(string.Join(",", tree.NaturalInOrder.Select(x => x.Value)));
 
-            // Duck typing!
+            // Duck typing! tree is BinaryTree, which is not IEnumerable, check GetEnumerator method
             foreach (var node in tree)
                 WriteLine(node.Value);
         }
