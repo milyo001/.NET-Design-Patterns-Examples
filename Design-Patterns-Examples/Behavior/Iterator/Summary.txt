@@ -1,0 +1,5 @@
+﻿Summary for iterator pattern:
+* An iterator specified how you can traverse an object
+* Cannot be recursive
+* Generally, an IEnumerable<T>-returning method is enough
+* Iteration works through duck typing - you need a GetEnumerator() method that yields a type that has Current and MoveNext()
