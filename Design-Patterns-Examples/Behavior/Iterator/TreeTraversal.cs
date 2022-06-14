@@ -2,6 +2,7 @@
 
 namespace DotNetDesignPatternDemos.Structural.Iterator.TreeTraversal
 {
+    // Used for C++ variant
     public class Node<T>
     {
         public T Value;
@@ -23,7 +24,7 @@ namespace DotNetDesignPatternDemos.Structural.Iterator.TreeTraversal
         }
     }
 
-    // Iterator class
+    // Iterator class (C++ style)
     public class InOrderIterator<T>
     {
         public Node<T> Current { get; set; }
@@ -80,7 +81,7 @@ namespace DotNetDesignPatternDemos.Structural.Iterator.TreeTraversal
         }
     }
 
-
+    // C# classic iterator
     public class BinaryTree<T>
     {
         private Node<T> root;
@@ -135,7 +136,7 @@ namespace DotNetDesignPatternDemos.Structural.Iterator.TreeTraversal
             var root = new Node<int>(1,
               new Node<int>(2), new Node<int>(3));
 
-            // C++ style, a classical iterator
+            // C++ style
             var it = new InOrderIterator<int>(root);
 
             while (it.MoveNext())
