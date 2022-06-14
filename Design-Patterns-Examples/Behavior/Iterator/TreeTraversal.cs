@@ -18,11 +18,12 @@ namespace DotNetDesignPatternDemos.Structural.Iterator.TreeTraversal
             this.Value = value;
             this.Left = left;
             this.Right = right;
-
+            
             left.Parent = right.Parent = this;
         }
     }
 
+    // Iterator class
     public class InOrderIterator<T>
     {
         public Node<T> Current { get; set; }
@@ -34,16 +35,22 @@ namespace DotNetDesignPatternDemos.Structural.Iterator.TreeTraversal
             this.root = Current = root;
             while (Current.Left != null)
                 Current = Current.Left;
+            
+            //      1 <- root
+            //     / \
+            //    2   3
+            //    ^ Current
         }
 
 
-
+        // Reset the iterator to the starting position
         public void Reset()
         {
             Current = root;
             yieldedStart = true;
         }
 
+        // Critical method for iterator, if succeded return true
         public bool MoveNext()
         {
             if (!yieldedStart)
@@ -120,14 +127,15 @@ namespace DotNetDesignPatternDemos.Structural.Iterator.TreeTraversal
             //  / \
             // 2   3
 
-            // in-order:  213
-            // preorder:  123
-            // postorder: 231
+            // In-order:  213
+            // Preorder:  123
+            // Postorder: 231
 
+            // So the root has value one and has two children with values 2 and 3
             var root = new Node<int>(1,
               new Node<int>(2), new Node<int>(3));
 
-            // C++ style
+            // C++ style, a classical iterator
             var it = new InOrderIterator<int>(root);
 
             while (it.MoveNext())
@@ -142,7 +150,7 @@ namespace DotNetDesignPatternDemos.Structural.Iterator.TreeTraversal
 
             WriteLine(string.Join(",", tree.NaturalInOrder.Select(x => x.Value)));
 
-            // duck typing!
+            // Duck typing!
             foreach (var node in tree)
                 WriteLine(node.Value);
         }
