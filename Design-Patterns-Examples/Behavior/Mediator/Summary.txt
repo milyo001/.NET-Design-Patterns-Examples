@@ -1,0 +1,6 @@
+﻿Summary for Mediator desing pattern: 
+* Create the mediator and have each object in system refer to it. (in a field)
+* Mediator is singleton
+* Mediator has functions the components can call
+* The components have functions the mediator can call
+* Event processing libraries make communication easier to implement (Mediatr, System.Reactive)
