@@ -36,7 +36,8 @@ namespace DotNetDesignPatternDemos.Behavioral.Mediator.ChatRoom
             Room.Message(Name, who, message);
         }
     }
-
+    
+    // ChatRoom is central component which acts as a mediator and which allows people to communicate with one another
     public class ChatRoom
     {
         // The list of people in the chat room
