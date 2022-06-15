@@ -44,6 +44,7 @@ An educational project where all .NET OOP design patterns are implemented with g
 - Mediator
 > A componet that facilitates  communication between other components without them necessarily being aware of each other or have a direct reference access to each other. Used mostly in chat rooms participants and players in MMORPGs 
 - Memento
+> A token/handle representing the system state. It let's us roll back to the state when the token was generated. May or may not directly expose state information.
 - Null Object
 - Observer
 - State
