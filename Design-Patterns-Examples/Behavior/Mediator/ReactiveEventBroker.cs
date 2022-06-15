@@ -7,6 +7,9 @@ using System.Reactive.Subjects;
 
 namespace RxDemos.ImplementingObservable.Broker
 {
+    // Actors objects 
+    
+    // Base class which has a EventBroker property
     public class Actor
     {
         protected EventBroker broker;
@@ -21,6 +24,7 @@ namespace RxDemos.ImplementingObservable.Broker
     {
         public FootballCoach(EventBroker broker) : base(broker)
         {
+            // Use the observable in EventBroker
             broker.OfType<PlayerScoredEvent>()
               .Subscribe(
                 ps =>
@@ -58,6 +62,8 @@ namespace RxDemos.ImplementingObservable.Broker
     public class FootballPlayer : Actor
     {
         private IDisposable sub;
+        
+        // Default value
         public string Name { get; set; } = "Unknown Player";
         public int GoalsScored { get; set; } = 0;
 
@@ -91,6 +97,7 @@ namespace RxDemos.ImplementingObservable.Broker
         }
     }
 
+    // Events 
     public class PlayerEvent
     {
         public string Name { get; set; }
