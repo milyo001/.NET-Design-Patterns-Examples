@@ -42,6 +42,7 @@ An educational project where all .NET OOP design patterns are implemented with g
 - Iterator
 > How traversal of data structures happens and who exactly allows the traversal.
 - Mediator
+> A componet that facilitates  communication between other components without them necessarily being aware of each other or have a direct reference access to each other. Used mostly in char rooms participants and players in MMORPGs 
 - Memento
 - Null Object
 - Observer
