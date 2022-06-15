@@ -61,8 +61,10 @@ namespace DotNetDesignPatternDemos.Behavioral.Mediator.ChatRoom
             people.Add(p);
         }
 
+        // Source is the person sending the message, destination is the reciever of the message and message is the message obviously
         public void Message(string source, string destination, string message)
         {
+            // FirstOrDefault can retrun null so we use the ? (safe operator) and then receive the message
             people.FirstOrDefault(p => p.Name == destination)?.Receive(source, message);
         }
     }
