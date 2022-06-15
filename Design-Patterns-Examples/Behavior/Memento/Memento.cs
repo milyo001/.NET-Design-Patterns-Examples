@@ -21,7 +21,7 @@ namespace DotNetDesignPatternDemos.Behavioral.Memento
             this.balance = balance;
         }
 
-        // Memento pattern 
+        // Memento pattern, re
         public Memento Deposit(int amount)
         {
             balance += amount;
@@ -44,16 +44,16 @@ namespace DotNetDesignPatternDemos.Behavioral.Memento
         static void Main(string[] args)
         {
             var ba = new BankAccount(100);
-            var m1 = ba.Deposit(50); // 150
-            var m2 = ba.Deposit(25); // 175
+            var m1 = ba.Deposit(50); // state one, Balance: 150 
+            var m2 = ba.Deposit(25); // state two,  Balance: 175
             WriteLine(ba);
 
-            // restore to m1
+            // Restore to state one 
             ba.Restore(m1);
-            WriteLine(ba);
+            WriteLine(ba); // Balance: 150 
 
             ba.Restore(m2);
-            WriteLine(ba);
+            WriteLine(ba); // Balance: 175 
         }
     }
 }
