@@ -6,6 +6,7 @@ namespace DotNetDesignPatternDemos.Behavioral.Mediator.Mediatr
 {
     public class PongResponse
     {
+        // When request was recieved
         public DateTime Timestamp;
 
         public PongResponse(DateTime timestamp)
@@ -13,19 +14,20 @@ namespace DotNetDesignPatternDemos.Behavioral.Mediator.Mediatr
             Timestamp = timestamp;
         }
     }
-
+    
     public class PingCommand : IRequest<PongResponse>
     {
-        // nothing here
+        // Nothing here
     }
 
-    [UsedImplicitly]
+    // The command handler, configured in dependancy injection framework (AutoFac in our case)
+    [UsedImplicitly] // Part of JetBrains.Annotaions
     public class PingCommandHandler : IRequestHandler<PingCommand, PongResponse>
     {
         public async Task<PongResponse> Handle(PingCommand request, CancellationToken cancellationToken)
         {
             return await Task.FromResult(new PongResponse(DateTime.UtcNow))
-              .ConfigureAwait(false);
+              .ConfigureAwait(false); // Avoid deadlocks
         }
     }
 
@@ -33,8 +35,10 @@ namespace DotNetDesignPatternDemos.Behavioral.Mediator.Mediatr
     {
         public static async Task Main()
         {
+            // AutoFac
             var builder = new ContainerBuilder();
-            builder.RegisterType<Mediator>()
+            
+            builder.RegisterType<IMediator>() // or builder.RegisterType<Mediator>()
               .As<IMediator>()
               .InstancePerLifetimeScope(); // singleton
 
