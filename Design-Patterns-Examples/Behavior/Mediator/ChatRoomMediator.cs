@@ -16,7 +16,7 @@ namespace DotNetDesignPatternDemos.Behavioral.Mediator.ChatRoom
             Name = name;
         }
 
-        // 
+        // Recieve a message from a sender
         public void Receive(string sender, string message)
         {
             string s = $"{sender}: '{message}'";
@@ -24,12 +24,13 @@ namespace DotNetDesignPatternDemos.Behavioral.Mediator.ChatRoom
             chatLog.Add(s);
         }
 
+        // Say something in the chatroom
         public void Say(string message)
         {
             Room.Broadcast(Name, message);
         }
 
-        // Specify to how you want to send the message 
+        // Specify to who do you want to send the message 
         public void PrivateMessage(string who, string message)
         {
             Room.Message(Name, who, message);
@@ -38,15 +39,19 @@ namespace DotNetDesignPatternDemos.Behavioral.Mediator.ChatRoom
 
     public class ChatRoom
     {
+        // The list of people in the chat room
         private List<Person> people = new List<Person>();
 
+        // Mediator pattern, broadcast to all people in the room
         public void Broadcast(string source, string message)
         {
+            // Go through every single person, this is where the chat room is mediating the messages, like a central message hub
             foreach (var p in people)
                 if (p.Name != source)
                     p.Receive(source, message);
         }
 
+        // Person can join the room
         public void Join(Person p)
         {
             string joinMsg = $"{p.Name} joins the chat";
