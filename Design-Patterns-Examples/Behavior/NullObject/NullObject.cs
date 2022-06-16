@@ -25,6 +25,7 @@ namespace DotNetDesignPatternDemos.Behavioral.NullObject
 
     public class BankAccount
     {
+        // Inject the ILog  
         private ILog log;
         private int balance;
 
@@ -54,6 +55,7 @@ namespace DotNetDesignPatternDemos.Behavioral.NullObject
         }
     }
 
+    // Null object, no functionality, just the implementation of ILog 
     public sealed class NullLog : ILog
     {
         public void Info(string msg)
@@ -67,6 +69,7 @@ namespace DotNetDesignPatternDemos.Behavioral.NullObject
         }
     }
 
+    // Dynamic nullable object approach
     public class Null<T> : DynamicObject where T : class
     {
         public static T Instance
@@ -96,6 +99,7 @@ namespace DotNetDesignPatternDemos.Behavioral.NullObject
             //var log = new ConsoleLog();
             //ILog log = null;
             //var log = new NullLog();
+            
             var log = Null<ILog>.Instance;
             var ba = new BankAccount(log);
             ba.Deposit(100);
