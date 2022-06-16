@@ -47,26 +47,32 @@ namespace DotNetDesignPatternDemos.Behavioral.Memento.UndoRedo
             if (m != null)
             {
                 balance = m.Balance;
+                // Even a restore is operation which we track in changes list
                 changes.Add(m);
                 current = changes.Count - 1;
             }
         }
 
+        // Undo functionality 
         public Memento Undo()
         {
             if (current > 0)
             {
+                // Go back to the previous state of memento
                 var m = changes[--current];
+                // Set the balance of the previous memento
                 balance = m.Balance;
                 return m;
             }
             return null;
         }
 
+        // Similar functionality for redo
         public Memento Redo()
         {
             if (current + 1 < changes.Count)
             {
+                // Reversed functionality
                 var m = changes[++current];
                 balance = m.Balance;
                 return m;
