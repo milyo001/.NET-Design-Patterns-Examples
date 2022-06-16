@@ -48,6 +48,7 @@ An educational project where all .NET OOP design patterns are implemented with g
 - Null Object
 > A no operation object that conforms to the required  interface, satisfying a dependancy requirement of some other object.
 - Observer
+> Observer is an object that wishes to be informed about events happening in the system. The entity generating the events is an observable.
 - State
 - Strategy
 - Template Method
