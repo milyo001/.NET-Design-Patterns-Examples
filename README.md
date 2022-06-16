@@ -46,6 +46,7 @@ An educational project where all .NET OOP design patterns are implemented with g
 - Memento
 > A token/handle representing the system state. It let's us roll back to the state when the token was generated. May or may not directly expose state information.
 - Null Object
+> A no operation object that conforms to the required  interface, satisfying a dependancy requirement of some other object.
 - Observer
 - State
 - Strategy
