@@ -5,7 +5,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using MoreLinq;
 
 namespace DotNetDesignPatternDemos.Behavioral.Observer.PropertyDependencies
 {
