@@ -14,6 +14,7 @@ namespace DotNetDesignPatternDemos.Behavioral.State.SwitchExpressions
         Close
     }
 
+    // Switch state machine class
     public class SwitchExpressions
     {
         static Chest Manipulate(Chest chest,
@@ -52,15 +53,15 @@ namespace DotNetDesignPatternDemos.Behavioral.State.SwitchExpressions
             Chest chest = Chest.Locked;
             Console.WriteLine($"Chest is {chest}");
 
-            // unlock with key
+            // Unlock with key
             chest = Manipulate(chest, Action.Open, true);
             Console.WriteLine($"Chest is now {chest}");
 
-            // close it!
+            // Close it!
             chest = Manipulate(chest, Action.Close, false);
             Console.WriteLine($"Chest is now {chest}");
 
-            // close it again!
+            // Close it again!
             chest = Manipulate(chest, Action.Close, false);
             Console.WriteLine($"Chest is now {chest}");
         }
