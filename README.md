@@ -50,6 +50,7 @@ An educational project where all .NET OOP design patterns are implemented with g
 - Observer
 > Observer is an object that wishes to be informed about events happening in the system. The entity generating the events is an observable.
 - State
+> Object's behavior is determined by its state. An object transitions from one to another (something needs to trigger a transaction). A formalized construct which manages state and transitions is called state machine.
 - Strategy
 - Template Method
 - Visitor
