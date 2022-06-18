@@ -54,4 +54,5 @@ An educational project where all .NET OOP design patterns are implemented with g
 - Strategy
 > Enable  the exact  behavior of the system to be selected either at run-time (dynamic) or compile time (static). Also know as a policy (in low level languages like C++)
 - Template Method
+> Allows us to define the "skeleton" of the algorithm, with concreteimplementations defined in subclasses
 - Visitor
