@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
+﻿
 // todo: this is somehow buggy in recording
 namespace DotNetDesignPatternDemos.Behavioral.Strategy
 {
+    // Let's say we need to sort a collection of person class and calling people.Sort() won't work by default 
+    // because we need to specify a condition
     class Person : IEquatable<Person>, IComparable<Person>
     {
         public int Id;
         public string Name;
         public int Age;
 
+        // IComparable
         public int CompareTo(Person other)
         {
             if (ReferenceEquals(this, other)) return 0;
@@ -25,6 +25,7 @@ namespace DotNetDesignPatternDemos.Behavioral.Strategy
             Age = age;
         }
 
+        // IEquatable
         public bool Equals(Person other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -32,6 +33,7 @@ namespace DotNetDesignPatternDemos.Behavioral.Strategy
             return Id == other.Id;
         }
 
+        // IEquatable
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -55,6 +57,7 @@ namespace DotNetDesignPatternDemos.Behavioral.Strategy
             return !Equals(left, right);
         }
 
+        // Inner class to sort by name
         private sealed class NameRelationalComparer : IComparer<Person>
         {
             public int Compare(Person x, Person y)
@@ -77,11 +80,11 @@ namespace DotNetDesignPatternDemos.Behavioral.Strategy
         {
             var people = new List<Person>();
 
-            // equality == != and comparison < = >
+            // Equality == != and comparison < = >
 
             people.Sort(); // meaningless by default
 
-            // sort by name with a lambda
+            // Sort by name with a lambda
             people.Sort((x, y) => x.Name.CompareTo(y.Name));
 
             people.Sort(Person.NameComparer);
