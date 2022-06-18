@@ -19,6 +19,7 @@ namespace DotNetDesignPatternDemos.Behavioral.State.Stateless
         Historectomy
     }
 
+    // You can use another state machine libary 
     class Demo
     {
         static void Main(string[] args)
@@ -32,9 +33,10 @@ namespace DotNetDesignPatternDemos.Behavioral.State.Stateless
             
             stateMachine.Configure(Health.Reproductive)
               .Permit(Activity.Historectomy, Health.NonReproductive)
-              .PermitIf(Activity.HaveUnprotectedSex, Health.Pregnant,
+              .PermitIf(Activity.HaveUnprotectedSex, Health.Pregnant, // Condition if parents are not watching haha
                 () => ParentsNotWatching);
             
+            // Another example 
             stateMachine.Configure(Health.Pregnant)
               .Permit(Activity.GiveBirth, Health.Reproductive)
               .Permit(Activity.HaveAbortion, Health.Reproductive);
