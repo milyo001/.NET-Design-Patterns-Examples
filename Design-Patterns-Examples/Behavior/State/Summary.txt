@@ -1,0 +1,7 @@
+﻿Summary for state pattern:
+* Given sufficient complexity, it pays to formally define possible states and events/triggers
+* Can define
+	* State entry/exit positions
+	* Action when particular event cause a transition 
+	* Guard conditions	enabling/disabling a transition
+	* Default action when no transitions are found for an event
