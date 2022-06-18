@@ -82,6 +82,8 @@ namespace DotNetDesignPatternDemos.Behavioral.Strategy.Static
             tp.AppendList(new[] { "foo", "bar", "baz" });
             WriteLine(tp);
 
+            // tp = new TextProcessor<HtmlListStrategy>(); won't work, we need simple to create new object for that
+            
             var tp2 = new TextProcessor<HtmlListStrategy>();
             tp2.AppendList(new[] { "foo", "bar", "baz" });
             WriteLine(tp2);
