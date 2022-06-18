@@ -1,69 +1,53 @@
-﻿
-namespace DotNetDesignPatternDemos.Behavioral.State.SwitchExpressions
+﻿using System.Text;
+
+namespace DotNetDesignPatternDemos.Behavioral.State
 {
-    enum Chest
+    enum State
     {
-        Open,
-        Closed,
-        Locked
+        Locked,
+        Failed,
+        Unlocked
     }
 
-    enum Action
+    public class SwitchBasedDemo
     {
-        Open,
-        Close
-    }
-
-    // Switch state machine class
-    public class SwitchExpressions
-    {
-        static Chest Manipulate(Chest chest,
-          Action action, bool haveKey) =>
-          (chest, action, haveKey) switch
-          {
-              (Chest.Closed, Action.Open, _) => Chest.Open,
-              (Chest.Locked, Action.Open, true) => Chest.Open,
-              (Chest.Open, Action.Close, true) => Chest.Locked,
-              (Chest.Open, Action.Close, false) => Chest.Closed,
-
-              _ => chest
-          };
-
-        static Chest Manipulate2(Chest chest,
-          Action action, bool haveKey)
+        static void Main(string[] args)
         {
-            switch (chest, action, haveKey)
+            string code = "1234";
+            var state = State.Locked;
+            var entry = new StringBuilder();
+
+            while (true)
             {
-                case (Chest.Closed, Action.Open, _):
-                    return Chest.Open;
-                case (Chest.Locked, Action.Open, true):
-                    return Chest.Open;
-                case (Chest.Open, Action.Close, true):
-                    return Chest.Locked;
-                case (Chest.Open, Action.Close, false):
-                    return Chest.Closed;
-                default:
-                    Console.WriteLine("Chest unchanged");
-                    return chest;
+                switch (state)
+                {
+                    case State.Locked:
+                        entry.Append(Console.ReadKey().KeyChar);
+
+                        if (entry.ToString() == code)
+                        {
+                            state = State.Unlocked;
+                            break;
+                        }
+
+                        if (!code.StartsWith(entry.ToString()))
+                        {
+                            // the code is blatantly wrong
+                            state = State.Failed;
+                        }
+                        break;
+                    case State.Failed:
+                        Console.CursorLeft = 0;
+                        Console.WriteLine("FAILED");
+                        entry.Clear();
+                        state = State.Locked;
+                        break;
+                    case State.Unlocked:
+                        Console.CursorLeft = 0;
+                        Console.WriteLine("UNLOCKED");
+                        return;
+                }
             }
-        }
-
-        public static void Main(string[] args)
-        {
-            Chest chest = Chest.Locked;
-            Console.WriteLine($"Chest is {chest}");
-
-            // Unlock with key
-            chest = Manipulate(chest, Action.Open, true);
-            Console.WriteLine($"Chest is now {chest}");
-
-            // Close it!
-            chest = Manipulate(chest, Action.Close, false);
-            Console.WriteLine($"Chest is now {chest}");
-
-            // Close it again!
-            chest = Manipulate(chest, Action.Close, false);
-            Console.WriteLine($"Chest is now {chest}");
         }
     }
 }
