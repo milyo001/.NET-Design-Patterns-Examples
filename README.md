@@ -6,7 +6,7 @@ An educational project where all .NET OOP design patterns are implemented with g
 ## SOLID Design Principles
 ## Creational
 - Builder
-> **When constructing objects gets a little bit complicated.** Some objects are simple and can be created with a simple constructor call. Other objects require a lot of ceremony to create. Having a constructor with 10 constructor arguments is not productive. 
+> When constructing objects gets a little bit complicated. Some objects are simple and can be created with a simple constructor call. Other objects require a lot of ceremony to create. Having a constructor with 10 constructor arguments is not productive. 
 - Factories
   * Abstract Factory
   > **The purpose of the Abstract Factory is to provide an interface for creating families of related objects, without specifying concrete classes.**
@@ -52,5 +52,6 @@ An educational project where all .NET OOP design patterns are implemented with g
 - State
 > Object's behavior is determined by its state. An object transitions from one to another (something needs to trigger a transaction). A formalized construct which manages state and transitions is called state machine.
 - Strategy
+> Enable  the exact  behavior of the system to be selected either at run-time (dynamic) or compile time (static). Also know as a policy (in low level languages like C++)
 - Template Method
 - Visitor
