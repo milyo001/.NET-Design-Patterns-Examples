@@ -9,10 +9,16 @@ namespace DotNetDesignPatternDemos.Behavioral.Strategy.Dynamic
         Html
     }
 
+    // Example <ul><li>Item1</li><li>Item2</li></ul>
     public interface IListStrategy
     {
+        // Opening tag 
         void Start(StringBuilder sb);
+        
+        // Ending tag 
         void End(StringBuilder sb);
+        
+        // Adds new list item
         void AddListItem(StringBuilder sb, string item);
     }
 
@@ -20,7 +26,7 @@ namespace DotNetDesignPatternDemos.Behavioral.Strategy.Dynamic
     {
         public void Start(StringBuilder sb)
         {
-            // markdown doesn't require a list preamble
+            // Markdown doesn't require a list preamble
         }
 
         public void End(StringBuilder sb)
@@ -52,11 +58,15 @@ namespace DotNetDesignPatternDemos.Behavioral.Strategy.Dynamic
         }
     }
 
+    
     public class TextProcessor
     {
         private StringBuilder sb = new StringBuilder();
+        
+        // The actual strategy, you can add it with from the constructor as well
         private IListStrategy listStrategy;
 
+        // Change listStrategy type here
         public void SetOutputFormat(OutputFormat format)
         {
             switch (format)
