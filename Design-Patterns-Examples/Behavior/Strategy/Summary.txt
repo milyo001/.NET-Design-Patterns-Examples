@@ -1,0 +1,4 @@
+﻿Summary for strategy pattern: 
+* Define an algorithm at high level
+* Define an interface you expect each strategy to follow
+* And then provide either dynamic or static composition of strategy	in the overall algorithm	
