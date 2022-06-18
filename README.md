@@ -6,17 +6,17 @@ An educational project where all .NET OOP design patterns are implemented with g
 ## SOLID Design Principles
 ## Creational
 - Builder
-> **When constructing objects gets a little bit complicated.** Some objects are simple and can be created with a simple constructor call. Other objects require a lot of ceremony to create. Having a constructor with 10 constructor arguments is not productive. 
+> When constructing objects gets a little bit complicated. Some objects are simple and can be created with a simple constructor call. Other objects require a lot of ceremony to create. Having a constructor with 10 constructor arguments is not productive. 
 - Factories
   * Abstract Factory
-  > **The purpose of the Abstract Factory is to provide an interface for creating families of related objects, without specifying concrete classes.**
+  > The purpose of the Abstract Factory is to provide an interface for creating families of related objects, without specifying concrete classes.
   * Factory Method
-  > Creating an object in one invocation same as Builder but the act of **creating object is outsourced from the actual object to something else like separate function 
-   or a separate class (Factory)**
+  > Creating an object in one invocation same as Builder but the act of creating object is outsourced from the actual object to something else like separate function 
+   or a separate class (Factory)
 - Prototype
 > When it is easier to copy existing object to fully initialize a new one.
 - Singleton
-> **Use the Singleton pattern when a class in your program should have just a single instance available to all clientsfor example**, a single database object shared by different parts of the program.
+> Use the Singleton pattern when a class in your program should have just a single instance available to all clientsfor example**, a single database object shared by different parts of the program.
 ## Structural
 - Bridge
 > Connecting components together through abstractions.
@@ -52,5 +52,6 @@ An educational project where all .NET OOP design patterns are implemented with g
 - State
 > Object's behavior is determined by its state. An object transitions from one to another (something needs to trigger a transaction). A formalized construct which manages state and transitions is called state machine.
 - Strategy
+> Enable  the exact  behavior of the system to be selected either at run-time (dynamic) or compile time (static). Also know as a policy (in low level languages like C++)
 - Template Method
 - Visitor
