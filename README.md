@@ -56,3 +56,4 @@ An educational project where all .NET OOP design patterns are implemented with g
 - Template Method
 > Allows us to define the "skeleton" of the algorithm, with concreteimplementations defined in subclasses
 - Visitor
+> A component (visitor) is allowed to traverse the entire inheritance hierarchy. Implemented by propagating a single Visit() method throughout the entire hierarchy
