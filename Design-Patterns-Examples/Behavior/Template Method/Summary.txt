@@ -1,0 +1,4 @@
+﻿Summary for template method:
+* Define an algorithm at a high level  (typicaly an abstract class)
+* Define constituent parts as abstract methods/properties
+* Inhreit from the alogrithm class, providing necessary overrides
