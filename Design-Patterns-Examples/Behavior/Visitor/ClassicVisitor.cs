@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 using static System.Console;
 
 namespace DotNetDesignPatternDemos.Behavioral.Visitor.Classic
 {
+    public interface IExpressionVisitor
+    {
+        // For every visit type we need to implement the method here 
+        // Example void Visit(TestExpression te);
+        void Visit(DoubleExpression de);
+        void Visit(AdditionExpression ae);
+    }
+    
     public abstract class Expression
     {
+        // Accept particular IExpressionVisitor
         public abstract void Accept(IExpressionVisitor visitor);
     }
 
@@ -21,6 +28,8 @@ namespace DotNetDesignPatternDemos.Behavioral.Visitor.Classic
 
         public override void Accept(IExpressionVisitor visitor)
         {
+            // Double dispatch, if we remove for example void Visit(DoubleExpression de)
+            // in IExpressionVisitor interface we will get a compile error
             visitor.Visit(this);
         }
     }
@@ -42,11 +51,6 @@ namespace DotNetDesignPatternDemos.Behavioral.Visitor.Classic
         }
     }
 
-    public interface IExpressionVisitor
-    {
-        void Visit(DoubleExpression de);
-        void Visit(AdditionExpression ae);
-    }
 
     public class ExpressionPrinter : IExpressionVisitor
     {
@@ -73,7 +77,7 @@ namespace DotNetDesignPatternDemos.Behavioral.Visitor.Classic
     {
         public double Result;
 
-        // what you really want is int Visit(...)
+        // What you really want is int Visit(...)
 
         public void Visit(DoubleExpression de)
         {
@@ -99,6 +103,7 @@ namespace DotNetDesignPatternDemos.Behavioral.Visitor.Classic
               right: new AdditionExpression(
                 left: new DoubleExpression(2),
                 right: new DoubleExpression(3)));
+            
             var ep = new ExpressionPrinter();
             ep.Visit(e);
             WriteLine(ep.ToString());
