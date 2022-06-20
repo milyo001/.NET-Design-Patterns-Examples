@@ -1,0 +1,5 @@
+﻿Summary for visitor pattern: 
+* Propagate an accept (Visitor v) method through the entire hierarchy
+* Create a visitor with Visit(Foo), Visit(Bar) ... for each element in the hierarchy
+* Each accept() simply calls visitor. Visit(this)
+* Using dynamic , we can invoke right overload based on argument type along (dynamic dispatch)
