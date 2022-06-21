@@ -16,7 +16,7 @@ An educational project where all .NET OOP design patterns are implemented with g
 - Prototype
 > When it is easier to copy existing object to fully initialize a new one.
 - Singleton
-> Use the Singleton pattern when a class in your program should have just a single instance available to all clientsfor example**, a single database object shared by different parts of the program.
+> Use the Singleton pattern when a class in your program should have just a single instance available to all clientsfor example, a single database object shared by different parts of the program.
 ## Structural
 - Bridge
 > Connecting components together through abstractions.
