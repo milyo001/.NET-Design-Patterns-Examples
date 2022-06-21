@@ -16,10 +16,10 @@ An educational project where all .NET OOP design patterns are implemented with g
 - Prototype
 > A partially or fully initialized object that you copy (clone) and make use of it. 
 - Singleton
-> Use the Singleton pattern when a class in your program should have just a single instance available to all clients for example, a single database object shared by different parts of the program.
+> Use the Singleton pattern when a class in your program should have just a single instance available to all clients for example, a single database object shared by different parts of the program
 ## Structural
 - Bridge
-> Connecting components together through abstractions.
+> Connecting components together through abstractions. A mechanism that decouples and interface (hierarchy) from implementation (hierarchy)
 - Composite
 > Allows composing objects into a tree-like structure and work with the it as if it was a singular object.
 - Adapter
